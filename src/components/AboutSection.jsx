@@ -70,22 +70,22 @@ const AboutSection = () => {
                     {/* Right - Text */}
                     <motion.div variants={itemVariants} className="flex-1 space-y-6">
                         <p className="text-xl lg:text-2xl font-heading font-medium text-white leading-relaxed">
-                            I don't just write code.{' '}
+                            I am a{' '}
                             <span className="gradient-text">
-                                I build digital systems that scale, perform, and feel seamless.
+                                Full-Stack Developer focused on modern web technologies and AI.
                             </span>
                         </p>
 
                         <p className="text-text-secondary leading-relaxed">
-                            I'm a passionate Full Stack Developer with a keen eye for crafting
-                            elegant solutions. I thrive on transforming complex challenges into
-                            intuitive, user-friendly applications that make a real impact.
+                            I have a strong interest in building intelligent applications and enjoy turning
+                            complex problems into simple, user-friendly solutions that deliver real value.
                         </p>
 
                         <p className="text-text-secondary leading-relaxed">
-                            With hands-on experience across the full development stack, from building
-                            responsive front-end interfaces to architecting scalable back-end systems,
-                            I bring ideas to life through clean, maintainable code and modern technologies.
+                            I have hands-on experience developing responsive front-end interfaces and scalable
+                            back-end systems using technologies like Java, Flask, and JavaScript. Recently,
+                            I have been exploring AI-driven solutions, including projects that use semantic
+                            similarity and machine learning to enhance user experiences.
                         </p>
 
                         {/* Quick facts */}
@@ -93,8 +93,8 @@ const AboutSection = () => {
                             {[
                                 { label: 'Location', value: 'Sri Lanka 🇱🇰' },
                                 { label: 'Languages', value: 'English, Sinhala' },
-                                { label: 'Degree', value: 'BSc in IT' },
-                                { label: 'Interests', value: 'Tech, Innovation' },
+                                { label: 'Degree', value: 'BSc (Hons) Computer Science (IIT – University of Westminster)' },
+                                { label: 'Interests', value: 'Web Development, AI & Machine Learning, Software Engineering' },
                             ].map((fact, i) => (
                                 <div key={i} className="glass-card p-3 flex flex-col">
                                     <span className="text-xs text-text-muted font-mono mb-1">{fact.label}</span>
@@ -105,7 +105,8 @@ const AboutSection = () => {
 
                         {/* Download CV */}
                         <motion.a
-                            href="#"
+                            href="/Kavindu%20Rajapaksha%20CV.pdf"
+                            download="Kavindu-Rajapaksha-CV.pdf"
                             className="inline-flex items-center gap-2 text-accent hover:text-accent-light transition-colors font-medium text-sm group mt-4"
                             whileHover={{ x: 5 }}
                             data-cursor-hover
