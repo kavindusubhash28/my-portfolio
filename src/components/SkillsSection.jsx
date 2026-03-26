@@ -1,156 +1,131 @@
 import { motion, useInView } from 'framer-motion';
-import { useRef, useState } from 'react';
+import { useRef } from 'react';
+import {
+    SiC,
+    SiCss,
+    SiDocker,
+    SiFigma,
+    SiFlask,
+    SiFlutter,
+    SiGit,
+    SiHtml5,
+    SiIntellijidea,
+    SiJavascript,
+    SiMysql,
+    SiPandas,
+    SiPostgresql,
+    SiPostman,
+    SiPython,
+    SiReact,
+    SiSpringboot,
+    SiVscodium,
+} from 'react-icons/si';
+import { FaBrain, FaCodeBranch, FaGithub, FaJava, FaPlug } from 'react-icons/fa';
 
-const categories = [
-    { id: 'frontend', label: 'Frontend', icon: '🎨' },
-    { id: 'backend', label: 'Backend', icon: '⚙️' },
-    { id: 'tools', label: 'Tools & DevOps', icon: '🛠' },
-    { id: 'other', label: 'Other', icon: '💡' },
+const skillItems = [
+    { name: 'Java', Icon: FaJava, color: '#ED8B00' },
+    { name: 'Python', Icon: SiPython, color: '#3776AB' },
+    { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
+    { name: 'C', Icon: SiC, color: '#A8B9CC' },
+    { name: 'React', Icon: SiReact, color: '#61DAFB' },
+    { name: 'Flutter', Icon: SiFlutter, color: '#02569B' },
+    { name: 'HTML', Icon: SiHtml5, color: '#E34F26' },
+    { name: 'CSS', Icon: SiCss, color: '#1572B6' },
+    { name: 'Flask', Icon: SiFlask, color: '#FFFFFF' },
+    { name: 'Spring Boot', Icon: SiSpringboot, color: '#6DB33F' },
+    { name: 'Pandas', Icon: SiPandas, color: '#150458' },
+    { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1' },
+    { name: 'MySQL', Icon: SiMysql, color: '#4479A1' },
+    { name: 'Git', Icon: SiGit, color: '#F05032' },
+    { name: 'GitHub', Icon: FaGithub, color: '#FFFFFF' },
+    { name: 'Postman', Icon: SiPostman, color: '#FF6C37' },
+    { name: 'VS Code', Icon: SiVscodium, color: '#007ACC' },
+    { name: 'IntelliJ', Icon: SiIntellijidea, color: '#FFFFFF' },
+    { name: 'Figma', Icon: SiFigma, color: '#F24E1E' },
+    { name: 'CI/CD', Icon: FaCodeBranch, color: '#FF7A00' },
+    { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
+    { name: 'API', Icon: FaPlug, color: '#00C2FF' },
+    { name: 'RAG', Icon: FaBrain, color: '#AB47BC' },
 ];
-
-const skills = {
-    frontend: [
-        { name: 'React', level: 90, icon: '⚛️', color: '#61DAFB' },
-        { name: 'Next.js', level: 80, icon: '▲', color: '#FFFFFF' },
-        { name: 'JavaScript', level: 92, icon: 'JS', color: '#F7DF1E' },
-        { name: 'TypeScript', level: 75, icon: 'TS', color: '#3178C6' },
-        { name: 'HTML/CSS', level: 95, icon: '🌐', color: '#E34F26' },
-        { name: 'Tailwind CSS', level: 90, icon: '💨', color: '#06B6D4' },
-    ],
-    backend: [
-        { name: 'Node.js', level: 85, icon: '🟢', color: '#68A063' },
-        { name: 'Express.js', level: 82, icon: '🚂', color: '#FFFFFF' },
-        { name: 'Python', level: 78, icon: '🐍', color: '#3776AB' },
-        { name: 'Java', level: 75, icon: '☕', color: '#ED8B00' },
-        { name: 'MongoDB', level: 80, icon: '🍃', color: '#47A248' },
-        { name: 'MySQL', level: 78, icon: '🗄', color: '#4479A1' },
-    ],
-    tools: [
-        { name: 'Git & GitHub', level: 88, icon: '📂', color: '#F05032' },
-        { name: 'Docker', level: 65, icon: '🐳', color: '#2496ED' },
-        { name: 'VS Code', level: 95, icon: '💻', color: '#007ACC' },
-        { name: 'Figma', level: 70, icon: '🎯', color: '#F24E1E' },
-        { name: 'Postman', level: 85, icon: '📮', color: '#FF6C37' },
-        { name: 'Linux', level: 72, icon: '🐧', color: '#FCC624' },
-    ],
-    other: [
-        { name: 'REST APIs', level: 88, icon: '🔌', color: '#FF7A00' },
-        { name: 'Firebase', level: 75, icon: '🔥', color: '#FFCA28' },
-        { name: 'Agile/Scrum', level: 80, icon: '📋', color: '#00C853' },
-        { name: 'Problem Solving', level: 90, icon: '🧩', color: '#AB47BC' },
-    ],
-};
 
 const SkillCard = ({ skill, index }) => (
     <motion.div
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
-        transition={{ delay: index * 0.05, duration: 0.4 }}
-        whileHover={{ y: -6, scale: 1.02 }}
-        className="glass-card glass-card-hover p-5 group relative overflow-hidden"
+        transition={{ delay: index * 0.04, duration: 0.45 }}
+        whileHover={{ y: -6 }}
+        className="relative group bg-dark-700/95 border border-white/[0.04] rounded-md p-4 md:p-5 flex flex-col items-center justify-center gap-3 min-h-[122px]"
         data-cursor-hover
     >
-        {/* Hover glow */}
         <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md"
             style={{
-                background: `radial-gradient(circle at 50% 0%, ${skill.color}08, transparent 70%)`,
+                background: `linear-gradient(180deg, ${skill.color}18, transparent 55%)`,
             }}
         />
 
-        <div className="relative z-10">
-            {/* Icon & Name */}
-            <div className="flex items-center justify-between mb-4">
-                <div className="flex items-center gap-3">
-                    <div
-                        className="w-10 h-10 rounded-xl flex items-center justify-center text-lg font-bold border border-white/[0.06]"
-                        style={{ background: `${skill.color}15`, color: skill.color }}
-                    >
-                        {skill.icon}
-                    </div>
-                    <span className="text-sm font-heading font-semibold text-white">{skill.name}</span>
-                </div>
-                <span className="text-xs font-mono text-text-muted">{skill.level}%</span>
-            </div>
-
-            {/* Progress Bar */}
-            <div className="h-1 bg-dark-500 rounded-full overflow-hidden">
-                <motion.div
-                    className="h-full rounded-full"
-                    style={{ background: `linear-gradient(90deg, ${skill.color}, ${skill.color}88)` }}
-                    initial={{ width: 0 }}
-                    whileInView={{ width: `${skill.level}%` }}
-                    viewport={{ once: true }}
-                    transition={{ delay: 0.3 + index * 0.05, duration: 0.8, ease: 'easeOut' }}
-                />
-            </div>
+        <div
+            className="relative z-10 text-4xl md:text-[2.4rem] leading-none"
+            style={{ color: skill.color }}
+            aria-hidden="true"
+        >
+            <skill.Icon />
         </div>
+
+        <p className="relative z-10 text-[11px] md:text-xs tracking-wide uppercase text-text-secondary font-heading font-semibold text-center">
+            {skill.name}
+        </p>
     </motion.div>
 );
 
 const SkillsSection = () => {
     const ref = useRef(null);
     const isInView = useInView(ref, { once: true, margin: '-100px' });
-    const [activeCategory, setActiveCategory] = useState('frontend');
 
     return (
-        <section id="skills" className="relative py-24 lg:py-32 overflow-hidden">
-            <div className="absolute top-0 left-0 w-1/4 h-full bg-gradient-to-r from-accent/[0.02] to-transparent" />
+        <section id="skills" className="relative py-24 lg:py-32 overflow-hidden grid-bg">
+            <div className="absolute top-0 left-0 w-56 h-56 bg-accent/10 blur-3xl" />
+            <div className="absolute bottom-16 right-10 w-64 h-64 bg-accent/10 blur-3xl" />
 
-            <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                {/* Section Header */}
+            <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
                 <motion.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6 }}
-                    className="mb-12"
+                    transition={{ duration: 0.6, ease: 'easeOut' }}
+                    className="relative border border-accent/15 bg-dark-800/95 shadow-[0_20px_70px_rgba(0,0,0,0.45)]"
                 >
-                    <div className="flex items-center gap-4 mb-4">
-                        <span className="text-accent font-mono text-sm">02.</span>
-                        <h2 className="text-3xl lg:text-5xl font-heading font-bold text-white">Tech Stack</h2>
-                        <div className="hidden sm:block flex-1 h-px bg-gradient-to-r from-dark-400 to-transparent" />
+                    <div className="h-1.5 w-full bg-gradient-to-r from-accent via-accent-light to-accent" />
+
+                    <div className="p-6 md:p-10 lg:p-12">
+                        <div className="flex items-stretch gap-6 md:gap-8">
+                            <div className="hidden md:flex items-center">
+                                <div className="flex items-center gap-3">
+                                    <span className="w-[2px] h-28 bg-accent/80" />
+                                    <p className="uppercase tracking-[0.22em] text-white font-heading font-semibold [writing-mode:vertical-rl] rotate-180">
+                                        Skills
+                                    </p>
+                                </div>
+                            </div>
+
+                            <div className="w-full">
+                                <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-accent mb-4">
+                                    What I do
+                                </h2>
+                                <p className="text-text-secondary text-center text-sm md:text-base mb-8 max-w-3xl mx-auto">
+                                    I build modern, responsive, and production-ready applications with clean frontend
+                                    experiences, reliable backend services, and practical developer tooling.
+                                </p>
+
+                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
+                                    {skillItems.map((skill, i) => (
+                                        <SkillCard key={skill.name} skill={skill} index={i} />
+                                    ))}
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p className="text-text-muted font-mono text-sm tracking-wider uppercase">
-                        Technologies I work with
-                    </p>
-                </motion.div>
-
-                {/* Category Tabs */}
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ delay: 0.2, duration: 0.5 }}
-                    className="flex flex-wrap gap-3 mb-10"
-                >
-                    {categories.map((cat) => (
-                        <button
-                            key={cat.id}
-                            onClick={() => setActiveCategory(cat.id)}
-                            data-cursor-hover
-                            className={`px-5 py-2.5 rounded-xl text-sm font-heading font-medium flex items-center gap-2 transition-all duration-300 ${activeCategory === cat.id
-                                    ? 'bg-accent/15 text-accent border border-accent/30'
-                                    : 'bg-dark-600/40 text-text-secondary border border-white/[0.04] hover:text-white hover:border-white/[0.08]'
-                                }`}
-                        >
-                            <span>{cat.icon}</span>
-                            <span>{cat.label}</span>
-                        </button>
-                    ))}
-                </motion.div>
-
-                {/* Skills Grid */}
-                <motion.div
-                    key={activeCategory}
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.3 }}
-                    className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
-                >
-                    {skills[activeCategory]?.map((skill, i) => (
-                        <SkillCard key={skill.name} skill={skill} index={i} />
-                    ))}
                 </motion.div>
             </div>
 
