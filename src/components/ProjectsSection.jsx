@@ -20,7 +20,7 @@ const projects = [
         tech: ['React'],
         category: 'frontend',
         color: '#4FC3F7',
-        github: 'https://github.com/kavindusubhash28',
+        github: 'https://www.kavindurajapaksha.me/',
         live: '#',
         featured: true,
     },
