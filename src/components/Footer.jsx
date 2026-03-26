@@ -15,7 +15,7 @@ const Footer = () => {
                         className="flex items-center gap-2"
                     >
                         <span className="font-heading font-bold text-lg text-white">
-                            K<span className="text-accent">.</span>S
+                            K<span className="text-accent">.</span>R
                         </span>
                         <span className="text-text-muted text-xs">—</span>
                         <span className="text-text-muted text-xs font-mono">Crafting Digital Excellence</span>

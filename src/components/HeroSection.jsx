@@ -271,7 +271,7 @@ const HeroSection = () => {
                             <img
                                 src={heroImage}
                                 alt="Kavindu Rajapaksha - Full Stack Developer"
-                                className="w-[280px] lg:w-[400px] xl:w-[440px] drop-shadow-2xl glow-amber select-none"
+                                className="w-[280px] lg:w-[400px] xl:w-[440px] drop-shadow-2xl glow-accent select-none"
                                 draggable={false}
                             />
                         </motion.div>
@@ -284,26 +284,6 @@ const HeroSection = () => {
                 </div>
             </div>
 
-            {/* Scroll indicator */}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={showContent ? { opacity: 1 } : {}}
-                transition={{ delay: 1.5, duration: 0.8 }}
-                className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2"
-            >
-                <span className="text-xs text-text-muted font-mono tracking-widest uppercase">Scroll</span>
-                <motion.div
-                    className="w-5 h-8 border border-white/20 rounded-full flex justify-center pt-1.5"
-                    animate={{ opacity: [0.3, 1, 0.3] }}
-                    transition={{ duration: 2, repeat: Infinity }}
-                >
-                    <motion.div
-                        className="w-1 h-2 bg-accent rounded-full"
-                        animate={{ y: [0, 8, 0] }}
-                        transition={{ duration: 1.5, repeat: Infinity, ease: 'easeInOut' }}
-                    />
-                </motion.div>
-            </motion.div>
         </section>
     );
 };
