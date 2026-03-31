@@ -12,7 +12,7 @@ const experiences = [
     },
     {
         year: '2026',
-        title: 'Actively Seeking Software Engineering Internship',
+        title: 'Actively Seeking an Internship',
         company: 'Open to Internship Opportunities',
         description: 'Looking for an internship where I can contribute to real-world projects, collaborate with experienced teams, and grow as a developer.',
         tech: ['Problem Solving', 'Team Collaboration', 'Git/GitHub', 'Communication'],
