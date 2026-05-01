@@ -16,8 +16,8 @@ const projects = [
     {
         id: 5,
         title: 'Lecture RAG Bot',
-        description: 'An intelligent RAG-based chatbot system that allows users to upload lecture materials and ask contextual questions, with AI-powered responses based on the uploaded content using retrieval-augmented generation.',
-        tech: ['React', 'Python', 'FastAPI', 'RAG', 'Vector DB', 'LLM', 'OpenAI'],
+        description: 'An intelligent RAG-based chatbot that enables users to upload PDF lectures and ask contextual questions. Uses semantic search with embeddings and Groq API powered by Llama 3 for intelligent answer generation based on retrieved content.',
+        tech: ['Python', 'Streamlit', 'pdfplumber', 'sentence-transformers', 'NumPy', 'Groq API', 'Llama 3', 'RAG'],
         category: 'fullstack',
         color: '#64B5F6',
         github: 'https://github.com/kavindusubhash28',
