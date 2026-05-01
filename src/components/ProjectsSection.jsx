@@ -14,6 +14,17 @@ const projects = [
         featured: true,
     },
     {
+        id: 5,
+        title: 'Lecture RAG Bot',
+        description: 'An intelligent RAG-based chatbot system that allows users to upload lecture materials and ask contextual questions, with AI-powered responses based on the uploaded content using retrieval-augmented generation.',
+        tech: ['React', 'Python', 'FastAPI', 'RAG', 'Vector DB', 'LLM', 'OpenAI'],
+        category: 'fullstack',
+        color: '#64B5F6',
+        github: 'https://github.com/kavindusubhash28',
+        live: '#',
+        featured: true,
+    },
+    {
         id: 1,
         title: 'My Personal Portfolio',
         description: 'My personal portfolio website to showcase my projects, skills, and experience with a modern and responsive design.',
