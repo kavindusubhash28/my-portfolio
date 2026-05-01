@@ -20,7 +20,7 @@ const projects = [
         tech: ['Python', 'Streamlit', 'pdfplumber', 'sentence-transformers', 'NumPy', 'Groq API', 'Llama 3', 'RAG'],
         category: 'fullstack',
         color: '#64B5F6',
-        github: 'https://github.com/kavindusubhash28',
+        github: 'https://github.com/kavindusubhash28/Lecture-RAG-bot',
         live: '#',
         featured: true,
     },
