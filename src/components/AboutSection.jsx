@@ -94,7 +94,7 @@ const AboutSection = () => {
                                 { label: 'Location', value: 'Sri Lanka 🇱🇰' },
                                 { label: 'Languages', value: 'English, Sinhala' },
                                 { label: 'Degree', value: 'BSc (Hons) Computer Science (IIT – University of Westminster)' },
-                                { label: 'Interests', value: 'Web Development, AI & Machine Learning, Software Engineering' },
+                                { label: 'Interests', value: 'Full-Stack Development, AI & Machine Learning, Software Engineering' },
                             ].map((fact, i) => (
                                 <div key={i} className="glass-card p-3 flex flex-col">
                                     <span className="text-xs text-text-muted font-mono mb-1">{fact.label}</span>
