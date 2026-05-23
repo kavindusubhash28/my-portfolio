@@ -4,6 +4,7 @@ import {
     SiC,
     SiCss,
     SiDocker,
+    SiExpress,
     SiFigma,
     SiFlask,
     SiFlutter,
@@ -12,6 +13,8 @@ import {
     SiIntellijidea,
     SiJavascript,
     SiMysql,
+    SiNextdotjs,
+    SiNodedotjs,
     SiPandas,
     SiPostgresql,
     SiPostman,
@@ -20,62 +23,137 @@ import {
     SiSpringboot,
     SiVscodium,
 } from 'react-icons/si';
-import { FaBrain, FaCodeBranch, FaGithub, FaJava, FaPlug } from 'react-icons/fa';
+import { FaBrain, FaCode, FaCodeBranch, FaGithub, FaJava, FaLaptopCode, FaPlug, FaServer, FaTools } from 'react-icons/fa';
 
-const skillItems = [
-    { name: 'Java', Icon: FaJava, color: '#ED8B00' },
-    { name: 'Python', Icon: SiPython, color: '#3776AB' },
-    { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
-    { name: 'C', Icon: SiC, color: '#A8B9CC' },
-    { name: 'React', Icon: SiReact, color: '#61DAFB' },
-    { name: 'Flutter', Icon: SiFlutter, color: '#02569B' },
-    { name: 'HTML', Icon: SiHtml5, color: '#E34F26' },
-    { name: 'CSS', Icon: SiCss, color: '#1572B6' },
-    { name: 'Flask', Icon: SiFlask, color: '#FFFFFF' },
-    { name: 'Spring Boot', Icon: SiSpringboot, color: '#6DB33F' },
-    { name: 'Pandas', Icon: SiPandas, color: '#150458' },
-    { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1' },
-    { name: 'MySQL', Icon: SiMysql, color: '#4479A1' },
-    { name: 'Git', Icon: SiGit, color: '#F05032' },
-    { name: 'GitHub', Icon: FaGithub, color: '#FFFFFF' },
-    { name: 'Postman', Icon: SiPostman, color: '#FF6C37' },
-    { name: 'VS Code', Icon: SiVscodium, color: '#007ACC' },
-    { name: 'IntelliJ', Icon: SiIntellijidea, color: '#FFFFFF' },
-    { name: 'Figma', Icon: SiFigma, color: '#F24E1E' },
-    { name: 'CI/CD', Icon: FaCodeBranch, color: '#FF7A00' },
-    { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
-    { name: 'API', Icon: FaPlug, color: '#00C2FF' },
-    { name: 'RAG', Icon: FaBrain, color: '#AB47BC' },
+const skillCategories = [
+    {
+        title: 'Languages',
+        description: 'Core programming languages used for high-performance applications, scripts, and algorithms.',
+        Icon: FaCode,
+        color: '#FF7A00',
+        skills: [
+            { name: 'Java', Icon: FaJava, color: '#ED8B00' },
+            { name: 'Python', Icon: SiPython, color: '#3776AB' },
+            { name: 'JavaScript', Icon: SiJavascript, color: '#F7DF1E' },
+            { name: 'C', Icon: SiC, color: '#A8B9CC' },
+        ],
+    },
+    {
+        title: 'Frontend & Mobile',
+        description: 'Frameworks and styling languages utilized to craft beautiful, responsive interfaces.',
+        Icon: FaLaptopCode,
+        color: '#FF9A33',
+        skills: [
+            { name: 'React', Icon: SiReact, color: '#61DAFB' },
+            { name: 'Next.js', Icon: SiNextdotjs, color: '#FFFFFF' },
+            { name: 'Flutter', Icon: SiFlutter, color: '#02569B' },
+            { name: 'HTML5', Icon: SiHtml5, color: '#E34F26' },
+            { name: 'CSS3', Icon: SiCss, color: '#1572B6' },
+            { name: 'Figma', Icon: SiFigma, color: '#F24E1E' },
+        ],
+    },
+    {
+        title: 'Backend & Relational Systems',
+        description: 'Server libraries, robust database engines, and secure application programming interfaces.',
+        Icon: FaServer,
+        color: '#CC6200',
+        skills: [
+            { name: 'Spring Boot', Icon: SiSpringboot, color: '#6DB33F' },
+            { name: 'Node.js', Icon: SiNodedotjs, color: '#339933' },
+            { name: 'Express', Icon: SiExpress, color: '#FFFFFF' },
+            { name: 'Flask', Icon: SiFlask, color: '#FFFFFF' },
+            { name: 'PostgreSQL', Icon: SiPostgresql, color: '#4169E1' },
+            { name: 'MySQL', Icon: SiMysql, color: '#4479A1' },
+            { name: 'API Development', Icon: FaPlug, color: '#00C2FF' },
+        ],
+    },
+    {
+        title: 'DevOps, AI & Tooling',
+        description: 'Development utilities, containers, semantic intelligence systems, and productivity platforms.',
+        Icon: FaTools,
+        color: '#FF8A00',
+        skills: [
+            { name: 'Docker', Icon: SiDocker, color: '#2496ED' },
+            { name: 'CI/CD', Icon: FaCodeBranch, color: '#FF7A00' },
+            { name: 'RAG', Icon: FaBrain, color: '#AB47BC' },
+            { name: 'Pandas', Icon: SiPandas, color: '#150458' },
+            { name: 'Git', Icon: SiGit, color: '#F05032' },
+            { name: 'GitHub', Icon: FaGithub, color: '#FFFFFF' },
+            { name: 'Postman', Icon: SiPostman, color: '#FF6C37' },
+            { name: 'VS Code', Icon: SiVscodium, color: '#007ACC' },
+            { name: 'IntelliJ IDEA', Icon: SiIntellijidea, color: '#FFFFFF' },
+        ],
+    },
 ];
 
-const SkillCard = ({ skill, index }) => (
+const SkillBadge = ({ skill }) => (
     <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true }}
-        transition={{ delay: index * 0.04, duration: 0.45 }}
-        whileHover={{ y: -6 }}
-        className="relative group bg-dark-700/95 border border-white/[0.04] rounded-md p-4 md:p-5 flex flex-col items-center justify-center gap-3 min-h-[122px]"
+        whileHover={{
+            y: -3,
+            borderColor: `${skill.color}40`,
+            backgroundColor: `${skill.color}08`,
+            boxShadow: `0 8px 20px -8px ${skill.color}35`,
+        }}
+        transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+        className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-dark-600/35 border border-white/[0.04] cursor-default group"
         data-cursor-hover
     >
+        <skill.Icon className="text-xl transition-transform duration-300 group-hover:scale-110" style={{ color: skill.color }} />
+        <span className="text-xs font-heading font-medium text-text-secondary group-hover:text-white transition-colors duration-300">
+            {skill.name}
+        </span>
+    </motion.div>
+);
+
+const CategoryCard = ({ category, index }) => (
+    <motion.div
+        initial={{ opacity: 0, y: 30 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-50px' }}
+        transition={{ delay: index * 0.1, duration: 0.55, ease: 'easeOut' }}
+        className="glass-card relative overflow-hidden p-6 lg:p-8 group"
+        data-cursor-hover
+    >
+        {/* Subtle top glow highlight */}
         <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-md"
+            className="absolute top-0 left-0 right-0 h-[2px] opacity-15 group-hover:opacity-100 transition-opacity duration-500"
+            style={{ background: `linear-gradient(90deg, ${category.color}, transparent)` }}
+        />
+
+        {/* Ambient radial brand color glow on hover */}
+        <div
+            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
             style={{
-                background: `linear-gradient(180deg, ${skill.color}18, transparent 55%)`,
+                background: `radial-gradient(circle at 12% 12%, ${category.color}08, transparent 45%)`,
             }}
         />
 
-        <div
-            className="relative z-10 text-4xl md:text-[2.4rem] leading-none"
-            style={{ color: skill.color }}
-            aria-hidden="true"
-        >
-            <skill.Icon />
-        </div>
+        <div className="relative z-10">
+            <div className="flex items-center gap-4 mb-4">
+                <div
+                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] transition-all duration-300 group-hover:scale-105"
+                    style={{
+                        background: `linear-gradient(135deg, ${category.color}15, ${category.color}02)`,
+                        boxShadow: `0 0 20px ${category.color}03`,
+                    }}
+                >
+                    <category.Icon className="text-xl" style={{ color: category.color }} />
+                </div>
+                <h3 className="text-lg lg:text-xl font-heading font-bold text-white tracking-wide">
+                    {category.title}
+                </h3>
+            </div>
 
-        <p className="relative z-10 text-[11px] md:text-xs tracking-wide uppercase text-text-secondary font-heading font-semibold text-center">
-            {skill.name}
-        </p>
+            <p className="text-text-secondary text-sm leading-relaxed mb-6 font-body">
+                {category.description}
+            </p>
+
+            <div className="flex flex-wrap gap-2.5">
+                {category.skills.map((skill) => (
+                    <SkillBadge key={skill.name} skill={skill} />
+                ))}
+            </div>
+        </div>
     </motion.div>
 );
 
@@ -84,49 +162,36 @@ const SkillsSection = () => {
     const isInView = useInView(ref, { once: true, margin: '-100px' });
 
     return (
-        <section id="skills" className="relative py-24 lg:py-32 overflow-hidden grid-bg">
-            <div className="absolute top-0 left-0 w-56 h-56 bg-accent/10 blur-3xl" />
-            <div className="absolute bottom-16 right-10 w-64 h-64 bg-accent/10 blur-3xl" />
+        <section id="skills" className="relative py-24 lg:py-32 overflow-hidden">
+            {/* Background blur decorations */}
+            <div className="absolute top-0 left-0 w-64 h-64 bg-accent/5 blur-3xl pointer-events-none" />
+            <div className="absolute bottom-16 right-10 w-80 h-80 bg-accent/5 blur-3xl pointer-events-none" />
 
-            <div className="relative max-w-6xl mx-auto px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-6 lg:px-8">
+                {/* Standardized Section Header */}
                 <motion.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
-                    transition={{ duration: 0.6, ease: 'easeOut' }}
-                    className="relative border border-accent/15 bg-dark-800/95 shadow-[0_20px_70px_rgba(0,0,0,0.45)]"
+                    transition={{ duration: 0.6 }}
+                    className="mb-16"
                 >
-                    <div className="h-1.5 w-full bg-gradient-to-r from-accent via-accent-light to-accent" />
-
-                    <div className="p-6 md:p-10 lg:p-12">
-                        <div className="flex items-stretch gap-6 md:gap-8">
-                            <div className="hidden md:flex items-center">
-                                <div className="flex items-center gap-3">
-                                    <span className="w-[2px] h-28 bg-accent/80" />
-                                    <p className="uppercase tracking-[0.22em] text-white font-heading font-semibold [writing-mode:vertical-rl] rotate-180">
-                                        Skills
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div className="w-full">
-                                <h2 className="text-3xl md:text-4xl font-heading font-bold text-center text-accent mb-4">
-                                    What I do
-                                </h2>
-                                <p className="text-text-secondary text-center text-sm md:text-base mb-8 max-w-3xl mx-auto">
-                                    I build modern, responsive, and production-ready applications with clean frontend
-                                    experiences, reliable backend services, and practical developer tooling.
-                                </p>
-
-                                <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 md:gap-4">
-                                    {skillItems.map((skill, i) => (
-                                        <SkillCard key={skill.name} skill={skill} index={i} />
-                                    ))}
-                                </div>
-                            </div>
-                        </div>
+                    <div className="flex items-center gap-4 mb-4">
+                        <span className="text-accent font-mono text-sm">02.</span>
+                        <h2 className="text-3xl lg:text-5xl font-heading font-bold text-white">Skills</h2>
+                        <div className="hidden sm:block flex-1 h-px bg-gradient-to-r from-dark-400 to-transparent" />
                     </div>
+                    <p className="text-text-muted font-mono text-sm tracking-wider uppercase">
+                        My Technical Toolbox
+                    </p>
                 </motion.div>
+
+                {/* Staggered Categorized Grid */}
+                <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    {skillCategories.map((category, i) => (
+                        <CategoryCard key={category.title} category={category} index={i} />
+                    ))}
+                </div>
             </div>
 
             <div className="section-divider mt-24 lg:mt-32 mx-auto max-w-4xl" />
