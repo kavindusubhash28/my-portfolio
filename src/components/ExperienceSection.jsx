@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const experiences = [
@@ -55,7 +55,7 @@ const ExperienceSection = () => {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header */}
-                <motion.div
+                <m.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -70,7 +70,7 @@ const ExperienceSection = () => {
                     <p className="text-text-muted font-mono text-sm tracking-wider uppercase">
                         Learning journey and projects
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* Timeline */}
                 <div className="relative max-w-3xl mx-auto">
@@ -84,7 +84,7 @@ const ExperienceSection = () => {
                         const isLeft = i % 2 === 0;
 
                         return (
-                            <motion.div
+                            <m.div
                                 key={i}
                                 initial={{ opacity: 0, y: 40 }}
                                 whileInView={{ opacity: 1, y: 0 }}
@@ -95,7 +95,7 @@ const ExperienceSection = () => {
                             >
                                 {/* Timeline Dot */}
                                 <div className="absolute left-5 lg:left-1/2 -translate-x-1/2 z-10">
-                                    <motion.div
+                                    <m.div
                                         whileInView={{ scale: [0, 1.2, 1] }}
                                         viewport={{ once: true }}
                                         transition={{ delay: i * 0.15 + 0.2, duration: 0.4 }}
@@ -107,7 +107,7 @@ const ExperienceSection = () => {
                                         }}
                                     >
                                         {typeIcons[exp.type]}
-                                    </motion.div>
+                                    </m.div>
                                 </div>
 
                                 {/* Content Card */}
@@ -149,7 +149,7 @@ const ExperienceSection = () => {
                                         </div>
                                     </div>
                                 </div>
-                            </motion.div>
+                            </m.div>
                         );
                     })}
                 </div>

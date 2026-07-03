@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import {
     SiC,
@@ -87,14 +87,14 @@ const skillCategories = [
 ];
 
 const SkillBadge = ({ skill }) => (
-    <motion.div
+    <m.div
         whileHover={{
             y: -3,
             borderColor: `${skill.color}40`,
             backgroundColor: `${skill.color}08`,
             boxShadow: `0 8px 20px -8px ${skill.color}35`,
         }}
-        transition={{ type: 'spring', stiffness: 450, damping: 25 }}
+        transition={{ duration: 0.25, ease: 'easeOut' }}
         className="flex items-center gap-2.5 px-3 py-2 rounded-lg bg-dark-600/35 border border-white/[0.04] cursor-default group"
         data-cursor-hover
     >
@@ -102,11 +102,11 @@ const SkillBadge = ({ skill }) => (
         <span className="text-xs font-heading font-medium text-text-secondary group-hover:text-white transition-colors duration-300">
             {skill.name}
         </span>
-    </motion.div>
+    </m.div>
 );
 
 const CategoryCard = ({ category, index }) => (
-    <motion.div
+    <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
@@ -154,7 +154,7 @@ const CategoryCard = ({ category, index }) => (
                 ))}
             </div>
         </div>
-    </motion.div>
+    </m.div>
 );
 
 const SkillsSection = () => {
@@ -169,7 +169,7 @@ const SkillsSection = () => {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Standardized Section Header */}
-                <motion.div
+                <m.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -184,7 +184,7 @@ const SkillsSection = () => {
                     <p className="text-text-muted font-mono text-sm tracking-wider uppercase">
                         My Technical Toolbox
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* Staggered Categorized Grid */}
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">

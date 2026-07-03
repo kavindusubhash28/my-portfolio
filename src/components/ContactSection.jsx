@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { useRef, useState } from 'react';
 
 const ContactSection = () => {
@@ -96,7 +96,7 @@ const ContactSection = () => {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8 relative z-10">
                 {/* Section Header */}
-                <motion.div
+                <m.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -112,11 +112,11 @@ const ContactSection = () => {
                         I'm currently open to new opportunities. Whether you have a project in mind,
                         want to collaborate, or just want to say hello — my inbox is always open.
                     </p>
-                </motion.div>
+                </m.div>
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 max-w-5xl mx-auto">
                     {/* Contact Form */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: -30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -186,7 +186,7 @@ const ContactSection = () => {
                                 />
                             </div>
 
-                            <motion.button
+                            <m.button
                                 type="submit"
                                 disabled={isSubmitting}
                                 className="btn-primary w-full px-8 py-3.5 rounded-xl font-heading font-semibold text-white text-sm flex items-center justify-center gap-2"
@@ -198,7 +198,7 @@ const ContactSection = () => {
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                                 </svg>
-                            </motion.button>
+                            </m.button>
 
                             {submitStatus.message && (
                                 <p
@@ -209,10 +209,10 @@ const ContactSection = () => {
                                 </p>
                             )}
                         </form>
-                    </motion.div>
+                    </m.div>
 
                     {/* Contact Info & Socials */}
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, x: 30 }}
                         whileInView={{ opacity: 1, x: 0 }}
                         viewport={{ once: true }}
@@ -257,23 +257,23 @@ const ContactSection = () => {
                             <p className="text-xs text-text-muted font-mono mb-4 uppercase tracking-wider">Find me on</p>
                             <div className="flex gap-3">
                                 {socials.map((social) => (
-                                    <motion.a
+                                    <m.a
                                         key={social.name}
                                         href={social.url}
                                         target="_blank"
                                         rel="noopener noreferrer"
                                         className="w-12 h-12 rounded-xl glass-card flex items-center justify-center text-text-secondary hover:text-accent hover:border-accent/30 transition-all duration-300"
-                                        whileHover={{ y: -4, scale: 1.1 }}
+                                        whileHover={{ y: -3, scale: 1.05 }}
                                         whileTap={{ scale: 0.95 }}
                                         data-cursor-hover
                                         title={social.name}
                                     >
                                         {social.icon}
-                                    </motion.a>
+                                    </m.a>
                                 ))}
                             </div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 </div>
             </div>
         </section>

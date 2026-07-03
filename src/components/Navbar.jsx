@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
 
 const Navbar = () => {
     const [scrolled, setScrolled] = useState(false);
@@ -43,7 +43,7 @@ const Navbar = () => {
 
     return (
         <>
-            <motion.nav
+            <m.nav
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
@@ -55,7 +55,7 @@ const Navbar = () => {
                 <div className="max-w-7xl mx-auto px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16 lg:h-20">
                         {/* Logo */}
-                        <motion.button
+                        <m.button
                             onClick={() => scrollTo('home')}
                             className="relative group"
                             whileHover={{ scale: 1.05 }}
@@ -66,7 +66,7 @@ const Navbar = () => {
                                 K<span className="text-accent">.</span>R
                             </span>
                             <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-                        </motion.button>
+                        </m.button>
 
                         {/* Desktop Nav */}
                         <div className="hidden md:flex items-center gap-1">
@@ -82,10 +82,10 @@ const Navbar = () => {
                                 >
                                     {link.label}
                                     {activeSection === link.id && (
-                                        <motion.span
+                                        <m.span
                                             layoutId="activeNav"
                                             className="absolute inset-0 bg-accent/[0.08] rounded-lg"
-                                            transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                                            transition={{ duration: 0.25, ease: 'easeOut' }}
                                         />
                                     )}
                                 </button>
@@ -93,7 +93,7 @@ const Navbar = () => {
                         </div>
 
                         {/* Hire Me button */}
-                        <motion.button
+                        <m.button
                             onClick={() => scrollTo('contact')}
                             className="hidden md:flex btn-primary px-5 py-2 rounded-lg font-heading font-semibold text-sm text-white"
                             whileHover={{ scale: 1.05 }}
@@ -101,7 +101,7 @@ const Navbar = () => {
                             data-cursor-hover
                         >
                             Hire Me
-                        </motion.button>
+                        </m.button>
 
                         {/* Mobile Hamburger */}
                         <button
@@ -109,27 +109,27 @@ const Navbar = () => {
                             className="md:hidden flex flex-col gap-1.5 p-2"
                             data-cursor-hover
                         >
-                            <motion.span
+                            <m.span
                                 animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
                                 className="w-6 h-0.5 bg-white block"
                             />
-                            <motion.span
+                            <m.span
                                 animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
                                 className="w-6 h-0.5 bg-white block"
                             />
-                            <motion.span
+                            <m.span
                                 animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
                                 className="w-6 h-0.5 bg-white block"
                             />
                         </button>
                     </div>
                 </div>
-            </motion.nav>
+            </m.nav>
 
             {/* Mobile Menu */}
             <AnimatePresence>
                 {mobileOpen && (
-                    <motion.div
+                    <m.div
                         initial={{ opacity: 0, y: -20 }}
                         animate={{ opacity: 1, y: 0 }}
                         exit={{ opacity: 0, y: -20 }}
@@ -138,7 +138,7 @@ const Navbar = () => {
                     >
                         <div className="flex flex-col items-center gap-6 py-10">
                             {navLinks.map((link, i) => (
-                                <motion.button
+                                <m.button
                                     key={link.id}
                                     initial={{ opacity: 0, y: 20 }}
                                     animate={{ opacity: 1, y: 0 }}
@@ -148,9 +148,9 @@ const Navbar = () => {
                                         }`}
                                 >
                                     {link.label}
-                                </motion.button>
+                                </m.button>
                             ))}
-                            <motion.button
+                            <m.button
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={{ opacity: 1, y: 0 }}
                                 transition={{ delay: 0.5 }}
@@ -158,9 +158,9 @@ const Navbar = () => {
                                 className="btn-primary px-8 py-3 rounded-lg font-heading font-semibold text-white mt-4"
                             >
                                 Hire Me
-                            </motion.button>
+                            </m.button>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
         </>

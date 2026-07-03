@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { useRef } from 'react';
 
 const projects = [
@@ -60,7 +60,7 @@ const projects = [
 ];
 
 const ProjectCard = ({ project, index }) => (
-    <motion.div
+    <m.div
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true }}
@@ -76,13 +76,6 @@ const ProjectCard = ({ project, index }) => (
         />
 
         {/* Hover background glow */}
-        <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700"
-            style={{
-                background: `radial-gradient(ellipse at 30% 20%, ${project.color}06, transparent 60%)`,
-            }}
-        />
-
         <div className="relative z-10">
             {/* Header */}
             <div className="flex items-start justify-between mb-4">
@@ -150,7 +143,7 @@ const ProjectCard = ({ project, index }) => (
                 ))}
             </div>
         </div>
-    </motion.div>
+    </m.div>
 );
 
 const ProjectsSection = () => {
@@ -161,7 +154,7 @@ const ProjectsSection = () => {
         <section id="projects" className="relative py-24 lg:py-32 overflow-hidden">
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header */}
-                <motion.div
+                <m.div
                     ref={ref}
                     initial={{ opacity: 0, y: 30 }}
                     animate={isInView ? { opacity: 1, y: 0 } : {}}
@@ -176,22 +169,23 @@ const ProjectsSection = () => {
                     <p className="text-text-muted font-mono text-sm tracking-wider uppercase">
                         Things I've built
                     </p>
-                </motion.div>
+                </m.div>
 
                 {/* Projects Grid */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
-                    animate={{ opacity: 1 }}
-                    transition={{ duration: 0.3 }}
+                    whileInView={{ opacity: 1 }}
+                    viewport={{ once: true }}
+                    transition={{ duration: 0.3, ease: 'easeOut' }}
                     className="grid grid-cols-1 md:grid-cols-2 gap-5"
                 >
                     {projects.map((project, i) => (
                         <ProjectCard key={project.id} project={project} index={i} />
                     ))}
-                </motion.div>
+                </m.div>
 
                 {/* View All Link */}
-                <motion.div
+                <m.div
                     initial={{ opacity: 0 }}
                     whileInView={{ opacity: 1 }}
                     viewport={{ once: true }}
@@ -210,7 +204,7 @@ const ProjectsSection = () => {
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                         </svg>
                     </a>
-                </motion.div>
+                </m.div>
             </div>
 
             <div className="section-divider mt-24 lg:mt-32 mx-auto max-w-4xl" />

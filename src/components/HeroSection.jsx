@@ -1,35 +1,42 @@
 import { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence, m } from 'framer-motion';
+import { FaJava } from 'react-icons/fa';
+import { SiExpress, SiJavascript, SiPython, SiReact } from 'react-icons/si';
 import heroImage from '../assets/hero.jpg.png';
 
 // Floating tech icons as SVG components
-const TechIcon = ({ icon, className, delay = 0 }) => (
-    <motion.div
-        className={`absolute pointer-events-none ${className}`}
+const TechIcon = ({ icon: Icon, className, delay = 0, color = '#F97316' }) => (
+    <m.div
+        className={`absolute pointer-events-none select-none ${className}`}
+        initial={{ opacity: 0, y: 14, scale: 0.95 }}
         animate={{
-            y: [0, -15, 0],
-            rotate: [0, 5, -5, 0],
+            opacity: 1,
+            y: [0, -6, 0],
+            rotate: [0, 1.5, -1.5, 0],
+            scale: 1,
         }}
         transition={{
-            duration: 5 + Math.random() * 3,
+            duration: 5.5,
             repeat: Infinity,
             ease: 'easeInOut',
             delay,
         }}
     >
-        <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-dark-600/50 backdrop-blur-sm border border-white/[0.05] flex items-center justify-center text-accent/30 text-lg">
-            {icon}
-        </div>
-    </motion.div>
+        <Icon
+            className="text-2xl lg:text-3xl opacity-25 drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
+            style={{ color }}
+            aria-hidden="true"
+        />
+    </m.div>
 );
 
 const techIcons = [
-    { icon: '⚛', className: 'top-[15%] right-[5%] lg:right-[8%]', delay: 0 },
-    { icon: '🟢', className: 'top-[30%] right-[15%] lg:right-[2%]', delay: 1.2 },
-    { icon: '🐍', className: 'top-[55%] right-[3%] lg:right-[5%]', delay: 0.6 },
-    { icon: '☕', className: 'bottom-[20%] right-[12%] lg:right-[10%]', delay: 1.8 },
-    { icon: '🗄', className: 'top-[10%] right-[25%] lg:right-[20%]', delay: 2.2 },
-    { icon: '🔷', className: 'bottom-[35%] right-[0%] lg:right-[0%]', delay: 0.9 },
+    { icon: SiReact, className: 'top-[16%] right-[9%] lg:right-[12%]', delay: 0, color: '#61DAFB' },
+    { icon: SiJavascript, className: 'top-[28%] right-[17%] lg:right-[7%]', delay: 1.1, color: '#F7DF1E' },
+    { icon: SiPython, className: 'top-[50%] right-[6%] lg:right-[8%]', delay: 0.6, color: '#3776AB' },
+    { icon: FaJava, className: 'bottom-[32%] right-[3%] lg:right-[2%]', delay: 1.7, color: '#ED8B00' },
+    { icon: SiExpress, className: 'top-[12%] right-[27%] lg:right-[22%]', delay: 2.1, color: '#FFFFFF' },
+    { icon: SiReact, className: 'bottom-[23%] right-[14%] lg:right-[12%]', delay: 0.9, color: '#61DAFB' },
 ];
 
 const HeroSection = () => {
@@ -76,7 +83,7 @@ const HeroSection = () => {
             {/* Boot Sequence Overlay */}
             <AnimatePresence>
                 {!bootComplete && (
-                    <motion.div
+                    <m.div
                         exit={{ opacity: 0, scale: 1.05 }}
                         transition={{ duration: 0.5 }}
                         className="fixed inset-0 z-50 bg-dark-900 flex items-center justify-center"
@@ -84,7 +91,7 @@ const HeroSection = () => {
                         <div className="max-w-lg w-full px-6">
                             <div className="font-mono text-sm space-y-2">
                                 {bootLines.map((line, i) => (
-                                    <motion.div
+                                    <m.div
                                         key={i}
                                         initial={{ opacity: 0, x: -10 }}
                                         animate={{ opacity: 1, x: 0 }}
@@ -94,26 +101,22 @@ const HeroSection = () => {
                                     >
                                         {line}
                                         {i === bootLines.length - 1 && (
-                                            <motion.span
-                                                animate={{ opacity: [1, 0] }}
-                                                transition={{ duration: 0.5, repeat: Infinity }}
-                                                className="inline-block w-2 h-4 bg-accent ml-1 align-middle"
-                                            />
+                                            <span className="inline-block w-2 h-4 bg-accent ml-1 align-middle animate-pulse" />
                                         )}
-                                    </motion.div>
+                                    </m.div>
                                 ))}
                             </div>
                             {/* Progress bar */}
-                            <motion.div className="mt-6 h-0.5 bg-dark-500 rounded-full overflow-hidden">
-                                <motion.div
+                            <m.div className="mt-6 h-0.5 bg-dark-500 rounded-full overflow-hidden">
+                                <m.div
                                     className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full"
                                     initial={{ width: '0%' }}
                                     animate={{ width: '100%' }}
                                     transition={{ duration: 2.2, ease: 'easeInOut' }}
                                 />
-                            </motion.div>
+                            </m.div>
                         </div>
-                    </motion.div>
+                    </m.div>
                 )}
             </AnimatePresence>
 
@@ -122,43 +125,33 @@ const HeroSection = () => {
                 <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-10 lg:gap-10 lg:h-full">
 
                     {/* Left Side - Text */}
-                    <motion.div
+                    <m.div
                         className="lg:max-w-[50%] xl:max-w-[45%] text-center lg:text-left flex-shrink-0 lg:self-center"
                         initial={{ opacity: 0, y: 40 }}
                         animate={showContent ? { opacity: 1, y: 0 } : {}}
                         transition={{ duration: 0.8, ease: 'easeOut' }}
                     >
-                        {/* Status badge */}
-                        <motion.div
-                            initial={{ opacity: 0, scale: 0.8 }}
-                            animate={showContent ? { opacity: 1, scale: 1 } : {}}
-                            transition={{ delay: 0.2, duration: 0.5 }}
-                            className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-accent/[0.08] border border-accent/20 mb-6"
-                        >
-                            <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
-                            <span className="text-xs font-mono text-accent tracking-wider uppercase">Available for work</span>
-                        </motion.div>
 
                         <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] mb-4">
-                            <motion.span
+                            <m.span
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={showContent ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.3, duration: 0.6 }}
                                 className="block text-white"
                             >
                                 KAVINDU
-                            </motion.span>
-                            <motion.span
+                            </m.span>
+                            <m.span
                                 initial={{ opacity: 0, y: 20 }}
                                 animate={showContent ? { opacity: 1, y: 0 } : {}}
                                 transition={{ delay: 0.45, duration: 0.6 }}
                                 className="block gradient-text"
                             >
                                 RAJAPAKSHA
-                            </motion.span>
+                            </m.span>
                         </h1>
 
-                        <motion.p
+                        <m.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={showContent ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.6, duration: 0.6 }}
@@ -166,25 +159,25 @@ const HeroSection = () => {
                         >
                             Building Smart & Scalable Digital Products with {' '}
                             <span className="text-accent font-medium">AI Integration.</span>
-                        </motion.p>
+                        </m.p>
 
-                        <motion.p
+                        <m.p
                             initial={{ opacity: 0, y: 20 }}
                             animate={showContent ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.7, duration: 0.6 }}
                             className="text-sm text-text-muted font-mono tracking-wide mb-8"
                         >
                             Full Stack Developer &bull; AI Enthusiast &bull; Problem Solver
-                        </motion.p>
+                        </m.p>
 
                         {/* CTA Buttons */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0, y: 20 }}
                             animate={showContent ? { opacity: 1, y: 0 } : {}}
                             transition={{ delay: 0.85, duration: 0.6 }}
                             className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
                         >
-                            <motion.button
+                            <m.button
                                 onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="btn-primary px-8 py-3.5 rounded-xl font-heading font-semibold text-white text-sm flex items-center justify-center gap-2"
                                 whileHover={{ scale: 1.03 }}
@@ -195,9 +188,9 @@ const HeroSection = () => {
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
                                 </svg>
-                            </motion.button>
+                            </m.button>
 
-                            <motion.button
+                            <m.button
                                 onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
                                 className="btn-outline px-8 py-3.5 rounded-xl font-heading font-semibold text-sm flex items-center justify-center gap-2"
                                 whileHover={{ scale: 1.03 }}
@@ -208,11 +201,11 @@ const HeroSection = () => {
                                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
                                 </svg>
-                            </motion.button>
-                        </motion.div>
+                            </m.button>
+                        </m.div>
 
                         {/* Stats */}
-                        <motion.div
+                        <m.div
                             initial={{ opacity: 0 }}
                             animate={showContent ? { opacity: 1 } : {}}
                             transition={{ delay: 1.1, duration: 0.8 }}
@@ -228,11 +221,11 @@ const HeroSection = () => {
                                     <div className="text-xs text-text-muted mt-0.5">{stat.label}</div>
                                 </div>
                             ))}
-                        </motion.div>
-                    </motion.div>
+                        </m.div>
+                    </m.div>
 
                     {/* Right Side - Image */}
-                    <motion.div
+                    <m.div
                         className="flex-1 relative flex items-center justify-center lg:justify-end min-w-0 lg:self-end lg:pr-6 xl:pr-10"
                         initial={{ opacity: 0, scale: 0.8 }}
                         animate={showContent ? { opacity: 1, scale: 1 } : {}}
@@ -244,29 +237,32 @@ const HeroSection = () => {
                         </div>
 
                         {/* Decorative ring */}
-                        <motion.div
+                        <m.div
                             className="absolute w-[320px] h-[320px] lg:w-[480px] lg:h-[480px] rounded-full border border-accent/10"
-                            animate={{ rotate: 360 }}
-                            transition={{ duration: 30, repeat: Infinity, ease: 'linear' }}
+                            initial={{ opacity: 0, rotate: -8 }}
+                            animate={{ opacity: 1, rotate: 0 }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
                         >
                             <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent/30" />
                             <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 rounded-full bg-accent/20" />
-                        </motion.div>
+                        </m.div>
 
-                        {/* Second ring */}
-                        <motion.div
+                        {/* Secondary ring */}
+                        <m.div
                             className="absolute w-[360px] h-[360px] lg:w-[540px] lg:h-[540px] rounded-full border border-white/[0.03]"
-                            animate={{ rotate: -360 }}
-                            transition={{ duration: 45, repeat: Infinity, ease: 'linear' }}
+                            initial={{ opacity: 0, scale: 0.98 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
                         >
                             <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent/20" />
-                        </motion.div>
+                        </m.div>
 
                         {/* Hero Image */}
-                        <motion.div
+                        <m.div
                             className="relative z-10"
-                            animate={{ y: [0, -10, 0] }}
-                            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                            initial={{ y: 12, opacity: 0 }}
+                            animate={{ y: 0, opacity: 1 }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
                         >
                             <img
                                 src={heroImage}
@@ -274,13 +270,13 @@ const HeroSection = () => {
                                 className="w-[280px] lg:w-[400px] xl:w-[440px] drop-shadow-2xl glow-accent select-none"
                                 draggable={false}
                             />
-                        </motion.div>
+                        </m.div>
 
                         {/* Floating tech icons */}
                         {techIcons.map((tech, i) => (
                             <TechIcon key={i} {...tech} />
                         ))}
-                    </motion.div>
+                    </m.div>
                 </div>
             </div>
 

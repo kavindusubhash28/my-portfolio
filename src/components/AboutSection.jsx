@@ -1,4 +1,4 @@
-import { motion, useInView } from 'framer-motion';
+import { m, useInView } from 'framer-motion';
 import { useRef } from 'react';
 import heroImage from '../assets/hero.jpg.png';
 
@@ -26,31 +26,31 @@ const AboutSection = () => {
 
             <div className="max-w-7xl mx-auto px-6 lg:px-8">
                 {/* Section Header */}
-                <motion.div
+                <m.div
                     ref={ref}
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
                     className="mb-16"
                 >
-                    <motion.div variants={itemVariants} className="flex items-center gap-4 mb-4">
+                    <m.div variants={itemVariants} className="flex items-center gap-4 mb-4">
                         <span className="text-accent font-mono text-sm">01.</span>
                         <h2 className="text-3xl lg:text-5xl font-heading font-bold text-white">About Me</h2>
                         <div className="hidden sm:block flex-1 h-px bg-gradient-to-r from-dark-400 to-transparent" />
-                    </motion.div>
-                    <motion.p variants={itemVariants} className="text-text-muted font-mono text-sm tracking-wider uppercase">
+                    </m.div>
+                    <m.p variants={itemVariants} className="text-text-muted font-mono text-sm tracking-wider uppercase">
                         Get to know who I am
-                    </motion.p>
-                </motion.div>
+                    </m.p>
+                </m.div>
 
-                <motion.div
+                <m.div
                     variants={containerVariants}
                     initial="hidden"
                     animate={isInView ? 'visible' : 'hidden'}
                     className="flex flex-col lg:flex-row items-center gap-12 lg:gap-20"
                 >
                     {/* Left - Image */}
-                    <motion.div variants={itemVariants} className="relative flex-shrink-0">
+                    <m.div variants={itemVariants} className="relative flex-shrink-0">
                         <div className="relative w-[240px] h-[280px] lg:w-[300px] lg:h-[350px]">
                             {/* Background decoration */}
                             <div className="absolute -inset-3 rounded-2xl bg-gradient-to-br from-accent/20 via-transparent to-accent/5 opacity-50" />
@@ -65,10 +65,10 @@ const AboutSection = () => {
                             <div className="absolute -bottom-2 -right-2 w-16 h-16 border-b-2 border-r-2 border-accent/40 rounded-br-2xl" />
                             <div className="absolute -top-2 -left-2 w-16 h-16 border-t-2 border-l-2 border-accent/40 rounded-tl-2xl" />
                         </div>
-                    </motion.div>
+                    </m.div>
 
                     {/* Right - Text */}
-                    <motion.div variants={itemVariants} className="flex-1 space-y-6">
+                    <m.div variants={itemVariants} className="flex-1 space-y-6">
                         <p className="text-xl lg:text-2xl font-heading font-medium text-white leading-relaxed">
                             I am a{' '}
                             <span className="gradient-text">
@@ -104,7 +104,7 @@ const AboutSection = () => {
                         </div>
 
                         {/* Download CV */}
-                        <motion.a
+                        <m.a
                             href="/Kavindu%20Rajapaksha%20CV.pdf"
                             download="Kavindu-Rajapaksha-CV.pdf"
                             className="inline-flex items-center gap-2 text-accent hover:text-accent-light transition-colors font-medium text-sm group mt-4"
@@ -118,9 +118,9 @@ const AboutSection = () => {
                             <svg className="w-3 h-3 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                             </svg>
-                        </motion.a>
-                    </motion.div>
-                </motion.div>
+                        </m.a>
+                    </m.div>
+                </m.div>
             </div>
 
             {/* Section Divider */}
