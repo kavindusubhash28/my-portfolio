@@ -3,7 +3,7 @@ import { useRef } from 'react';
 
 const experiences = [
     {
-        year: '2023 – Present',
+        year: '2024 – Present',
         title: 'BSc (Hons) Computer Science (Undergraduate)',
         company: 'IIT Sri Lanka - University of Westminster',
         description: 'Following Computer Science degree focused on software engineering, FullStack development, data structures, algorithms,Machine Learning and Data mining and database systems.',
