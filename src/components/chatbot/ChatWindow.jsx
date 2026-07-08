@@ -1,6 +1,13 @@
 import { X } from "lucide-react";
+import ChatMessage from "./ChatMessage";
+import ChatInput from "./ChatInput";
 
-const ChatWindow = ({ isOpen, onClose }) => {
+const ChatWindow = ({
+  isOpen,
+  onClose,
+  messages,
+  onSend,
+}) => {
   if (!isOpen) return null;
 
   return (
@@ -26,66 +33,25 @@ const ChatWindow = ({ isOpen, onClose }) => {
           onClick={onClose}
           className="text-gray-400 hover:text-white"
         >
-          <X size={22}/>
+          <X size={22} />
         </button>
 
       </div>
 
-      {/* Chat */}
+      {/* Messages */}
 
-      <div className="flex-1 overflow-y-auto p-5">
+      <div className="flex-1 overflow-y-auto p-4">
 
-        <div className="bg-gray-800 rounded-xl p-4 max-w-[85%]">
-
-          <p className="text-white">
-            Hello!
-          </p>
-
-          <p className="text-gray-300 mt-2 text-sm">
-
-            I'm Kavindu's Portfolio Assistant.
-
-          </p>
-
-          <p className="text-gray-400 mt-2 text-sm">
-
-            Ask me anything about my:
-
-          </p>
-
-          <ul className="mt-3 text-sm text-cyan-400 space-y-1">
-
-            <li>• Projects</li>
-
-            <li>• Skills</li>
-
-            <li>• Experience</li>
-
-            <li>• Education</li>
-
-            <li>• Contact</li>
-
-          </ul>
-
-        </div>
+        {messages.map((message) => (
+          <ChatMessage
+            key={message.id}
+            message={message}
+          />
+        ))}
 
       </div>
 
-      {/* Input */}
-
-      <div className="border-t border-gray-700 p-4">
-
-        <input
-
-          disabled
-
-          placeholder="Chat input coming next..."
-
-          className="w-full bg-gray-800 rounded-lg px-4 py-3 text-gray-400 outline-none"
-
-        />
-
-      </div>
+      <ChatInput onSend={onSend} />
 
     </div>
   );
