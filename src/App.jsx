@@ -8,6 +8,7 @@ import ProjectsSection from './components/ProjectsSection'
 import ExperienceSection from './components/ExperienceSection'
 import ContactSection from './components/ContactSection'
 import Footer from './components/Footer'
+import Chatbot from './components/chatbot'
 
 function App() {
   return (
@@ -24,6 +25,7 @@ function App() {
           <ContactSection />
         </main>
         <Footer />
+        <Chatbot />
       </div>
     </LazyMotion>
   )
