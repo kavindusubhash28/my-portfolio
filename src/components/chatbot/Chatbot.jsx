@@ -2,6 +2,7 @@ import { useState } from "react";
 
 import ChatButton from "./ChatButton";
 import ChatWindow from "./ChatWindow";
+import { getBotResponse } from "../../utils/chatbotLogic";
 
 const Chatbot = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -25,7 +26,7 @@ const Chatbot = () => {
     const botMessage = {
       id: Date.now() + 1,
       sender: "bot",
-      text: "Great question! We'll make me smart in the next step",
+      text: getBotResponse(text),
     };
 
     setMessages((prev) => [

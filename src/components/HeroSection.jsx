@@ -86,7 +86,7 @@ const HeroSection = () => {
                     <m.div
                         exit={{ opacity: 0, scale: 1.05 }}
                         transition={{ duration: 0.5 }}
-                        className="fixed inset-0 z-50 bg-dark-900 flex items-center justify-center"
+                        className="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center"
                     >
                         <div className="max-w-lg w-full px-6">
                             <div className="font-mono text-sm space-y-2">
