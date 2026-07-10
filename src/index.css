@@ -20,40 +20,19 @@ body {
   background-color: #0A0A0A;
   color: #FFFFFF;
   overflow-x: hidden;
-  cursor: none;
 }
 
 /* ===== CUSTOM CURSOR ===== */
 .custom-cursor {
-  width: 20px;
-  height: 20px;
-  border: 2px solid #FF7A00;
-  border-radius: 50%;
-  position: fixed;
-  pointer-events: none;
-  z-index: 9999;
-  transition: transform 0.15s ease, background-color 0.15s ease, width 0.15s ease, height 0.15s ease;
-  transform: translate(-50%, -50%);
-  mix-blend-mode: difference;
-}
-
-.custom-cursor.hover {
-  width: 50px;
-  height: 50px;
-  background-color: rgba(255, 122, 0, 0.15);
-  border-color: #FF9A33;
-}
-
-.cursor-dot {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   background-color: #FF7A00;
   border-radius: 50%;
   position: fixed;
   pointer-events: none;
-  z-index: 10000;
-  transform: translate(-50%, -50%);
+  z-index: 9999;
   transition: transform 0.08s ease;
+  transform: translate(-50%, -50%);
 }
 
 /* ===== SCROLLBAR ===== */

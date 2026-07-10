@@ -1,5 +1,4 @@
 import { LazyMotion, domAnimation } from 'framer-motion'
-import CustomCursor from './components/CustomCursor'
 import Navbar from './components/Navbar'
 import HeroSection from './components/HeroSection'
 import AboutSection from './components/AboutSection'
@@ -14,7 +13,6 @@ function App() {
   return (
     <LazyMotion features={domAnimation}>
       <div className="noise-overlay">
-        <CustomCursor />
         <Navbar />
         <main>
           <HeroSection />
