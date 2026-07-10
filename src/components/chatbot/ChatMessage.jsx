@@ -10,8 +10,8 @@ const ChatMessage = ({ message }) => {
       <div
         className={`max-w-[80%] px-4 py-3 rounded-2xl text-sm leading-relaxed ${
           isBot
-            ? "bg-gray-800 text-white rounded-bl-md"
-            : "bg-cyan-500 text-white rounded-br-md"
+            ? "bg-dark-600 text-white rounded-bl-md"
+            : "bg-gradient-to-br from-accent to-accent-dark text-white rounded-br-md"
         }`}
       >
         {message.text}
