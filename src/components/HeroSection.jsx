@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { AnimatePresence, m } from 'framer-motion';
+import { m } from 'framer-motion';
 import { FaJava } from 'react-icons/fa';
 import { SiExpress, SiJavascript, SiPython, SiReact } from 'react-icons/si';
 import heroImage from '../assets/hero.jpg.png';
@@ -40,30 +40,16 @@ const techIcons = [
 ];
 
 const HeroSection = () => {
-    const [bootComplete, setBootComplete] = useState(false);
+    const [isLoading, setIsLoading] = useState(true);
     const [showContent, setShowContent] = useState(false);
-    const [bootLines, setBootLines] = useState([]);
-
-    const bootSequence = [
-        { text: '> Initializing Kavindu.exe…', delay: 0 },
-        { text: '> Loading modules...', delay: 400 },
-        { text: '> React ✓  Flask ✓  Java✓', delay: 800 },
-        { text: '> Full Stack Developer Loaded ✓', delay: 1300 },
-        { text: '> Portfolio Ready.', delay: 1800 },
-    ];
 
     useEffect(() => {
-        bootSequence.forEach((line, i) => {
-            setTimeout(() => {
-                setBootLines(prev => [...prev, line.text]);
-                if (i === bootSequence.length - 1) {
-                    setTimeout(() => {
-                        setBootComplete(true);
-                        setTimeout(() => setShowContent(true), 300);
-                    }, 600);
-                }
-            }, line.delay);
-        });
+        const timer = setTimeout(() => {
+            setIsLoading(false);
+            setShowContent(true);
+        }, 1200);
+
+        return () => clearTimeout(timer);
     }, []);
 
     return (
@@ -81,44 +67,20 @@ const HeroSection = () => {
             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/[0.03] rounded-full blur-[120px]" />
 
             {/* Boot Sequence Overlay */}
-            <AnimatePresence>
-                {!bootComplete && (
-                    <m.div
-                        exit={{ opacity: 0, scale: 1.05 }}
-                        transition={{ duration: 0.5 }}
-                        className="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center"
-                    >
-                        <div className="max-w-lg w-full px-6">
-                            <div className="font-mono text-sm space-y-2">
-                                {bootLines.map((line, i) => (
-                                    <m.div
-                                        key={i}
-                                        initial={{ opacity: 0, x: -10 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        transition={{ duration: 0.3 }}
-                                        className={`${line.includes('✓') ? 'text-accent' : 'text-text-secondary'
-                                            }`}
-                                    >
-                                        {line}
-                                        {i === bootLines.length - 1 && (
-                                            <span className="inline-block w-2 h-4 bg-accent ml-1 align-middle animate-pulse" />
-                                        )}
-                                    </m.div>
-                                ))}
-                            </div>
-                            {/* Progress bar */}
-                            <m.div className="mt-6 h-0.5 bg-dark-500 rounded-full overflow-hidden">
-                                <m.div
-                                    className="h-full bg-gradient-to-r from-accent to-accent-light rounded-full"
-                                    initial={{ width: '0%' }}
-                                    animate={{ width: '100%' }}
-                                    transition={{ duration: 2.2, ease: 'easeInOut' }}
-                                />
-                            </m.div>
-                        </div>
-                    </m.div>
-                )}
-            </AnimatePresence>
+            {isLoading && (
+                <div className="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center">
+                    <div className="text-center px-6">
+                        <m.h2
+                            initial={{ opacity: 0, y: 16, scale: 0.98 }}
+                            animate={{ opacity: 1, y: 0, scale: 1 }}
+                            transition={{ duration: 0.8, ease: 'easeOut' }}
+                            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-white"
+                        >
+                            Kavindu Rajapaksha
+                        </m.h2>
+                    </div>
+                </div>
+            )}
 
             {/* Main Content */}
             <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-20 lg:pt-0 lg:h-screen">
