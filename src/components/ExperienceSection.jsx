@@ -11,18 +11,19 @@ const experiences = [
         type: 'education',
     },
     {
-        year: '2026',
-        title: 'Actively Seeking an Internship',
-        company: 'Open to Internship Opportunities',
-        description: 'Looking for an internship where I can contribute to real-world projects, collaborate with experienced teams, and grow as a developer.',
-        tech: ['Problem Solving', 'Team Collaboration', 'Git/GitHub', 'Communication'],
-        type: 'opportunity',
+        year: '2026 July- Present',
+        title: 'Software Engineering Intern',
+        company: 'Alchemy Solutions (Pvt.) Ltd.',
+        description: 'Working as a Software Engineering Intern, contributing to full-stack web application development by building responsive user interfaces, developing backend services, integrating APIs, and collaborating with the development team to deliver scalable software solutions.',
+        tech: ['React', 'Next.js', 'Node.js', 'Express.js', 'REST APIs', 'MongoDB', 'Git/GitHub'],
+        type: 'work',
     },
 ];
 
 const typeColors = {
     project: '#4FC3F7',
     education: '#81C784',
+    work: '#64B5F6',
     opportunity: '#FFB74D',
 };
 
@@ -35,6 +36,11 @@ const typeIcons = {
     opportunity: (
         <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6l4 2m6-2a10 10 0 11-20 0 10 10 0 0120 0z" />
+        </svg>
+    ),
+    work: (
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6V5a2 2 0 012-2h0a2 2 0 012 2v1m-4 0h4m-9 3h14a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2v-8a2 2 0 012-2zm0 0V8a2 2 0 012-2h1" />
         </svg>
     ),
     education: (
