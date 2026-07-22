@@ -1,5 +1,6 @@
 import { m, useInView } from 'framer-motion';
 import { useRef } from 'react';
+import BorderGlow from './BorderGlow';
 import {
     SiC,
     SiCss,
@@ -111,49 +112,48 @@ const CategoryCard = ({ category, index }) => (
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-50px' }}
         transition={{ delay: index * 0.1, duration: 0.55, ease: 'easeOut' }}
-        className="glass-card relative overflow-hidden p-6 lg:p-8 group"
+        className="relative"
         data-cursor-hover
     >
-        {/* Subtle top glow highlight */}
-        <div
-            className="absolute top-0 left-0 right-0 h-[2px] opacity-15 group-hover:opacity-100 transition-opacity duration-500"
-            style={{ background: `linear-gradient(90deg, ${category.color}, transparent)` }}
-        />
-
-        {/* Ambient radial brand color glow on hover */}
-        <div
-            className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
-            style={{
-                background: `radial-gradient(circle at 12% 12%, ${category.color}08, transparent 45%)`,
-            }}
-        />
-
-        <div className="relative z-10">
-            <div className="flex items-center gap-4 mb-4">
-                <div
-                    className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] transition-all duration-300 group-hover:scale-105"
-                    style={{
-                        background: `linear-gradient(135deg, ${category.color}15, ${category.color}02)`,
-                        boxShadow: `0 0 20px ${category.color}03`,
-                    }}
-                >
-                    <category.Icon className="text-xl" style={{ color: category.color }} />
+        <BorderGlow
+            className="glass-card overflow-hidden p-6 lg:p-8 group"
+            backgroundColor="#120F17"
+            borderRadius={28}
+            edgeSensitivity={30}
+            glowColor="40 80 80"
+            glowRadius={40}
+            glowIntensity={1}
+            coneSpread={25}
+            animated={false}
+            colors={['#c084fc', '#f472b6', '#38bdf8']}
+        >
+            <div className="relative z-10">
+                <div className="flex items-center gap-4 mb-4">
+                    <div
+                        className="w-12 h-12 rounded-xl flex items-center justify-center border border-white/[0.06] transition-all duration-300 group-hover:scale-105"
+                        style={{
+                            background: `linear-gradient(135deg, ${category.color}15, ${category.color}02)`,
+                            boxShadow: `0 0 20px ${category.color}03`,
+                        }}
+                    >
+                        <category.Icon className="text-xl" style={{ color: category.color }} />
+                    </div>
+                    <h3 className="text-lg lg:text-xl font-heading font-bold text-white tracking-wide">
+                        {category.title}
+                    </h3>
                 </div>
-                <h3 className="text-lg lg:text-xl font-heading font-bold text-white tracking-wide">
-                    {category.title}
-                </h3>
-            </div>
 
-            <p className="text-text-secondary text-sm leading-relaxed mb-6 font-body">
-                {category.description}
-            </p>
+                <p className="text-text-secondary text-sm leading-relaxed mb-6 font-body">
+                    {category.description}
+                </p>
 
-            <div className="flex flex-wrap gap-2.5">
-                {category.skills.map((skill) => (
-                    <SkillBadge key={skill.name} skill={skill} />
-                ))}
+                <div className="flex flex-wrap gap-2.5">
+                    {category.skills.map((skill) => (
+                        <SkillBadge key={skill.name} skill={skill} />
+                    ))}
+                </div>
             </div>
-        </div>
+        </BorderGlow>
     </m.div>
 );
 
