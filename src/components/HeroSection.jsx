@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
-import heroImage from '../assets/hero.jpg.png';
+import heroBg from '../assets/hero-bg.png';
 
 const visionSlides = [
     { title: 'Building.' },
@@ -115,16 +115,18 @@ const HeroSection = () => {
                 {/* Radial Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-accent/[0.04] rounded-full blur-[140px] pointer-events-none" />
 
-                {/* Centered Fixed Portrait Image */}
-                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-10">
-                    <div className="relative flex items-center justify-center h-full max-h-[85vh] pt-12">
-                        <img
-                            src={heroImage}
-                            alt="Kavindu Rajapaksha"
-                            className="h-[62vh] sm:h-[68vh] lg:h-[75vh] max-h-[720px] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)] [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] select-none"
-                            draggable={false}
-                        />
-                    </div>
+                {/* Hero Background Image */}
+                <div
+                    className="absolute inset-0 z-10 pointer-events-none select-none"
+                    style={{
+                        backgroundImage: `url(${heroBg})`,
+                        backgroundSize: 'cover',
+                        backgroundPosition: 'center',
+                        backgroundRepeat: 'no-repeat',
+                    }}
+                >
+                    {/* Dark overlay for text readability */}
+                    <div className="absolute inset-0 bg-dark-900/50" />
                 </div>
 
                 {/* Fixed Content: Name & Small Description */}
