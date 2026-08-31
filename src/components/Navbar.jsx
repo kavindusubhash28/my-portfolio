@@ -43,86 +43,77 @@ const Navbar = () => {
 
     return (
         <>
+            {/* Desktop Floating Pill Navbar */}
             <m.nav
                 initial={{ y: -100, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, ease: 'easeOut' }}
-                className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${scrolled
-                        ? 'bg-dark-900/80 backdrop-blur-xl border-b border-white/[0.04] shadow-2xl shadow-black/20'
-                        : 'bg-transparent'
-                    }`}
+                className="fixed top-3 left-0 right-0 z-50 hidden md:flex justify-center pointer-events-none"
             >
-                <div className="max-w-7xl mx-auto px-6 lg:px-8">
-                    <div className="flex items-center justify-between h-16 lg:h-20">
-                        {/* Logo */}
-                        <m.button
-                            onClick={() => scrollTo('home')}
-                            className="relative group"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            data-cursor-hover
-                        >
-                            <span className="font-heading font-bold text-xl lg:text-2xl text-white">
-                                K<span className="text-accent">.</span>R
-                            </span>
-                            <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-accent group-hover:w-full transition-all duration-300" />
-                        </m.button>
-
-                        {/* Desktop Nav */}
-                        <div className="hidden md:flex items-center gap-1">
-                            {navLinks.map((link) => (
-                                <button
-                                    key={link.id}
-                                    onClick={() => scrollTo(link.id)}
-                                    data-cursor-hover
-                                    className={`relative px-4 py-2 text-sm font-medium transition-colors duration-300 rounded-lg ${activeSection === link.id
-                                            ? 'text-accent'
-                                            : 'text-text-secondary hover:text-white'
-                                        }`}
-                                >
-                                    {link.label}
-                                    {activeSection === link.id && (
-                                        <m.span
-                                            layoutId="activeNav"
-                                            className="absolute inset-0 bg-accent/[0.08] rounded-lg"
-                                            transition={{ duration: 0.25, ease: 'easeOut' }}
-                                        />
-                                    )}
-                                </button>
-                            ))}
-                        </div>
-
-                        {/* Hire Me button */}
-                        <m.button
-                            onClick={() => scrollTo('contact')}
-                            className="hidden md:flex btn-primary px-5 py-2 rounded-lg font-heading font-semibold text-sm text-white"
-                            whileHover={{ scale: 1.05 }}
-                            whileTap={{ scale: 0.95 }}
-                            data-cursor-hover
-                        >
-                            Hire Me
-                        </m.button>
-
-                        {/* Mobile Hamburger */}
+                <div className="flex items-center gap-1 px-2 py-2 rounded-full bg-dark-800/70 backdrop-blur-xl border border-white/[0.08] shadow-2xl shadow-black/30 pointer-events-auto">
+                    {navLinks.map((link) => (
                         <button
-                            onClick={() => setMobileOpen(!mobileOpen)}
-                            className="md:hidden flex flex-col gap-1.5 p-2"
+                            key={link.id}
+                            onClick={() => scrollTo(link.id)}
                             data-cursor-hover
+                            className={`relative px-5 py-2 text-sm font-medium transition-all duration-300 rounded-full whitespace-nowrap ${activeSection === link.id
+                                    ? 'text-white'
+                                    : 'text-white/50 hover:text-white/80'
+                                }`}
                         >
-                            <m.span
-                                animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
-                                className="w-6 h-0.5 bg-white block"
-                            />
-                            <m.span
-                                animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
-                                className="w-6 h-0.5 bg-white block"
-                            />
-                            <m.span
-                                animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
-                                className="w-6 h-0.5 bg-white block"
-                            />
+                            {link.label}
+                            {activeSection === link.id && (
+                                <m.span
+                                    layoutId="activeNav"
+                                    className="absolute inset-0 bg-white/[0.08] rounded-full"
+                                    transition={{ duration: 0.25, ease: 'easeOut' }}
+                                />
+                            )}
                         </button>
-                    </div>
+                    ))}
+                </div>
+            </m.nav>
+
+            {/* Mobile Top Bar */}
+            <m.nav
+                initial={{ y: -100, opacity: 0 }}
+                animate={{ y: 0, opacity: 1 }}
+                transition={{ duration: 0.6, ease: 'easeOut' }}
+                className="fixed top-0 left-0 right-0 z-50 md:hidden bg-dark-900/80 backdrop-blur-xl border-b border-white/[0.04]"
+            >
+                <div className="flex items-center justify-between h-16 px-6">
+                    {/* Logo */}
+                    <m.button
+                        onClick={() => scrollTo('home')}
+                        className="relative group"
+                        whileHover={{ scale: 1.05 }}
+                        whileTap={{ scale: 0.95 }}
+                        data-cursor-hover
+                    >
+                        <span className="font-heading font-bold text-xl text-white">
+                            K<span className="text-accent">.</span>R
+                        </span>
+                    </m.button>
+
+                    {/* Mobile Hamburger */}
+                    <button
+                        onClick={() => setMobileOpen(!mobileOpen)}
+                        className="flex flex-col gap-1.5 p-2"
+                        data-cursor-hover
+                    >
+                        <m.span
+                            animate={mobileOpen ? { rotate: 45, y: 8 } : { rotate: 0, y: 0 }}
+                            className="w-6 h-0.5 bg-white block"
+                        />
+                        <m.span
+                            animate={mobileOpen ? { opacity: 0 } : { opacity: 1 }}
+                            className="w-6 h-0.5 bg-white block"
+                        />
+                        <m.span
+                            animate={mobileOpen ? { rotate: -45, y: -8 } : { rotate: 0, y: 0 }}
+                            className="w-6 h-0.5 bg-white block"
+                        />
+                    </button>
                 </div>
             </m.nav>
 
