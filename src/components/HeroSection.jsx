@@ -1,71 +1,90 @@
-import { useState, useEffect } from 'react';
-import { m } from 'framer-motion';
-import { FaJava } from 'react-icons/fa';
-import { SiExpress, SiJavascript, SiPython, SiReact } from 'react-icons/si';
+import { useState, useEffect, useRef } from 'react';
+import { m, AnimatePresence } from 'framer-motion';
 import heroImage from '../assets/hero.jpg.png';
 
-// Floating tech icons as SVG components
-const TechIcon = ({ icon: Icon, className, delay = 0, color = '#F97316' }) => (
-    <m.div
-        className={`absolute pointer-events-none select-none ${className}`}
-        initial={{ opacity: 0, y: 14, scale: 0.95 }}
-        animate={{
-            opacity: 1,
-            y: [0, -6, 0],
-            rotate: [0, 1.5, -1.5, 0],
-            scale: 1,
-        }}
-        transition={{
-            duration: 5.5,
-            repeat: Infinity,
-            ease: 'easeInOut',
-            delay,
-        }}
-    >
-        <Icon
-            className="text-2xl lg:text-3xl opacity-25 drop-shadow-[0_0_18px_rgba(0,0,0,0.35)]"
-            style={{ color }}
-            aria-hidden="true"
-        />
-    </m.div>
-);
-
-const techIcons = [
-    { icon: SiReact, className: 'top-[16%] right-[9%] lg:right-[12%]', delay: 0, color: '#61DAFB' },
-    { icon: SiJavascript, className: 'top-[28%] right-[17%] lg:right-[7%]', delay: 1.1, color: '#F7DF1E' },
-    { icon: SiPython, className: 'top-[50%] right-[6%] lg:right-[8%]', delay: 0.6, color: '#3776AB' },
-    { icon: FaJava, className: 'bottom-[32%] right-[3%] lg:right-[2%]', delay: 1.7, color: '#ED8B00' },
-    { icon: SiExpress, className: 'top-[12%] right-[27%] lg:right-[22%]', delay: 2.1, color: '#FFFFFF' },
-    { icon: SiReact, className: 'bottom-[23%] right-[14%] lg:right-[12%]', delay: 0.9, color: '#61DAFB' },
+const visionSlides = [
+    { title: 'Building.' },
+    { title: 'Coding.' },
+    { title: 'Becoming.' },
 ];
 
 const HeroSection = () => {
+    const containerRef = useRef(null);
+    const [currentSlide, setCurrentSlide] = useState(0);
+    const [direction, setDirection] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
-    const [showContent, setShowContent] = useState(false);
 
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsLoading(false);
-            setShowContent(true);
-        }, 1200);
+        }, 1000);
 
         return () => clearTimeout(timer);
     }, []);
 
+    useEffect(() => {
+        const handleScroll = () => {
+            if (!containerRef.current) return;
+            const rect = containerRef.current.getBoundingClientRect();
+            const totalScrollable = containerRef.current.offsetHeight - window.innerHeight;
+            if (totalScrollable <= 0) return;
+
+            // Compute scroll progress within the hero section (0 to 1)
+            const scrolled = -rect.top;
+            const progress = Math.min(Math.max(scrolled / totalScrollable, 0), 1);
+
+            let newIndex = 0;
+            if (progress >= 0.66) {
+                newIndex = 2;
+            } else if (progress >= 0.33) {
+                newIndex = 1;
+            } else {
+                newIndex = 0;
+            }
+
+            setCurrentSlide((prev) => {
+                if (prev !== newIndex) {
+                    setDirection(newIndex > prev ? 1 : -1);
+                    return newIndex;
+                }
+                return prev;
+            });
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        handleScroll();
+        return () => window.removeEventListener('scroll', handleScroll);
+    }, []);
+
+    const goToSlide = (index) => {
+        if (!containerRef.current) return;
+        const totalScrollable = containerRef.current.offsetHeight - window.innerHeight;
+        const targetTop = containerRef.current.offsetTop + (index / (visionSlides.length - 1)) * totalScrollable;
+        window.scrollTo({ top: targetTop, behavior: 'smooth' });
+    };
+
+    const handlePrev = () => {
+        if (currentSlide > 0) {
+            goToSlide(currentSlide - 1);
+        }
+    };
+
+    const handleNext = () => {
+        if (currentSlide < visionSlides.length - 1) {
+            goToSlide(currentSlide + 1);
+        }
+    };
+
+    const handleScrollBadgeClick = () => {
+        if (currentSlide < visionSlides.length - 1) {
+            goToSlide(currentSlide + 1);
+        } else {
+            document.getElementById('about')?.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+
     return (
-        <section id="home" className="relative min-h-screen flex items-center overflow-hidden">
-            {/* Background Elements */}
-            <div className="absolute inset-0 grid-bg animate-grid-move" />
-
-            {/* Split Background */}
-            <div className="absolute inset-0">
-                <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700" />
-                <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-dark-700 via-dark-800 to-dark-900" />
-            </div>
-
-            {/* Radial glow */}
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-accent/[0.03] rounded-full blur-[120px]" />
-
+        <section id="home" ref={containerRef} className="relative h-[300vh]">
             {/* Boot Sequence Overlay */}
             {isLoading && (
                 <div className="fixed inset-0 z-[9999] bg-dark-900 flex items-center justify-center">
@@ -74,7 +93,7 @@ const HeroSection = () => {
                             initial={{ opacity: 0, y: 16, scale: 0.98 }}
                             animate={{ opacity: 1, y: 0, scale: 1 }}
                             transition={{ duration: 0.8, ease: 'easeOut' }}
-                            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-white"
+                            className="font-heading font-bold text-3xl sm:text-4xl lg:text-5xl text-white tracking-wider"
                         >
                             Kavindu Rajapaksha
                         </m.h2>
@@ -82,166 +101,111 @@ const HeroSection = () => {
                 </div>
             )}
 
-            {/* Main Content */}
-            <div className="relative z-10 max-w-7xl mx-auto px-6 lg:px-8 w-full pt-20 lg:pt-0 lg:h-screen">
-                <div className="flex flex-col lg:flex-row items-center lg:items-end justify-between gap-10 lg:gap-10 lg:h-full">
+            {/* Sticky Viewport Container */}
+            <div className="sticky top-0 h-screen w-full flex flex-col justify-end items-center overflow-hidden">
+                {/* Background Elements */}
+                <div className="absolute inset-0 grid-bg animate-grid-move pointer-events-none" />
 
-                    {/* Left Side - Text */}
-                    <m.div
-                        className="lg:max-w-[50%] xl:max-w-[45%] text-center lg:text-left flex-shrink-0 lg:self-center"
-                        initial={{ opacity: 0, y: 40 }}
-                        animate={showContent ? { opacity: 1, y: 0 } : {}}
-                        transition={{ duration: 0.8, ease: 'easeOut' }}
+                {/* Dark Gradient Backdrop */}
+                <div className="absolute inset-0 pointer-events-none">
+                    <div className="absolute top-0 left-0 w-1/2 h-full bg-gradient-to-br from-dark-900 via-dark-800 to-dark-700" />
+                    <div className="absolute top-0 right-0 w-1/2 h-full bg-gradient-to-bl from-dark-700 via-dark-800 to-dark-900" />
+                </div>
+
+                {/* Radial Glow */}
+                <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[700px] bg-accent/[0.04] rounded-full blur-[140px] pointer-events-none" />
+
+                {/* Centered Fixed Portrait Image */}
+                <div className="absolute inset-0 flex items-center justify-center pointer-events-none select-none z-10">
+                    <div className="relative flex items-center justify-center h-full max-h-[85vh] pt-12">
+                        <img
+                            src={heroImage}
+                            alt="Kavindu Rajapaksha"
+                            className="h-[62vh] sm:h-[68vh] lg:h-[75vh] max-h-[720px] object-contain object-bottom drop-shadow-[0_20px_50px_rgba(0,0,0,0.85)] [mask-image:linear-gradient(to_bottom,black_75%,transparent_100%)] select-none"
+                            draggable={false}
+                        />
+                    </div>
+                </div>
+
+                {/* Fixed Content: Name & Small Description */}
+                <div className="relative z-20 text-center px-4 max-w-2xl mx-auto mb-2 sm:mb-3 select-none">
+                    <h2 className="font-heading font-extrabold text-sm sm:text-base lg:text-lg text-white uppercase tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">
+                        KAVINDU RAJAPAKSHA
+                    </h2>
+                    <p className="text-xs sm:text-sm text-text-secondary font-light mt-1 max-w-lg mx-auto drop-shadow-[0_2px_8px_rgba(0,0,0,0.9)]">
+                        Full Stack Developer &bull; AI Enthusiast &bull; Problem Solver
+                    </p>
+                </div>
+
+                {/* Changing Big Vision Text (3 Slides) */}
+                <div className="relative z-20 w-full overflow-hidden flex items-center justify-center pb-8 sm:pb-12 lg:pb-14 select-none pointer-events-none">
+                    <AnimatePresence mode="wait" custom={direction}>
+                        <m.h1
+                            key={currentSlide}
+                            custom={direction}
+                            initial={{ opacity: 0, y: direction > 0 ? 70 : -70 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: direction > 0 ? -70 : 70 }}
+                            transition={{ duration: 0.5, ease: [0.16, 1, 0.3, 1] }}
+                            className="font-heading font-black text-6xl sm:text-8xl md:text-9xl lg:text-[11rem] xl:text-[13rem] tracking-tight text-white leading-none text-center drop-shadow-[0_20px_45px_rgba(0,0,0,0.95)]"
+                        >
+                            {visionSlides[currentSlide].title}
+                        </m.h1>
+                    </AnimatePresence>
+                </div>
+
+                {/* Right Side - "SCROLL" Circular Badge */}
+                <button
+                    onClick={handleScrollBadgeClick}
+                    className="hidden md:flex absolute right-8 lg:right-14 top-1/2 -translate-y-1/2 z-30 w-16 h-16 rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-md items-center justify-center text-[10px] tracking-[0.22em] font-mono font-medium text-white/80 hover:text-white hover:border-accent/60 hover:bg-accent/[0.08] transition-all duration-300 group cursor-pointer shadow-lg shadow-black/30"
+                    aria-label="Scroll to next slide"
+                >
+                    <span className="group-hover:scale-105 transition-transform duration-300">SCROLL</span>
+                </button>
+
+                {/* Bottom Right - Slide Navigation (< —— >) */}
+                <div className="absolute right-6 sm:right-10 bottom-6 sm:bottom-10 z-30 flex items-center gap-3.5 select-none">
+                    <button
+                        onClick={handlePrev}
+                        disabled={currentSlide === 0}
+                        className={`w-9 h-9 rounded-full border border-white/15 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 ${
+                            currentSlide === 0
+                                ? 'opacity-25 cursor-not-allowed'
+                                : 'hover:border-accent/60 hover:bg-white/10 hover:text-accent cursor-pointer'
+                        }`}
+                        aria-label="Previous slide"
                     >
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
 
-                        <h1 className="font-heading font-black text-4xl sm:text-5xl lg:text-6xl xl:text-7xl leading-[0.95] mb-4">
-                            <m.span
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={showContent ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: 0.3, duration: 0.6 }}
-                                className="block text-white"
-                            >
-                                KAVINDU
-                            </m.span>
-                            <m.span
-                                initial={{ opacity: 0, y: 20 }}
-                                animate={showContent ? { opacity: 1, y: 0 } : {}}
-                                transition={{ delay: 0.45, duration: 0.6 }}
-                                className="block gradient-text"
-                            >
-                                RAJAPAKSHA
-                            </m.span>
-                        </h1>
+                    {/* Active slide line indicator */}
+                    <div className="w-16 h-[2px] bg-white/15 relative rounded-full overflow-hidden">
+                        <div
+                            className="h-full bg-accent transition-all duration-500 rounded-full shadow-[0_0_8px_rgba(255,122,0,0.6)]"
+                            style={{
+                                width: `${((currentSlide + 1) / visionSlides.length) * 100}%`,
+                            }}
+                        />
+                    </div>
 
-                        <m.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={showContent ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: 0.6, duration: 0.6 }}
-                            className="text-lg lg:text-xl text-text-secondary font-light max-w-lg mx-auto lg:mx-0 mb-3"
-                        >
-                            Building Smart & Scalable Digital Products with {' '}
-                            <span className="text-accent font-medium">AI Integration.</span>
-                        </m.p>
-
-                        <m.p
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={showContent ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: 0.7, duration: 0.6 }}
-                            className="text-sm text-text-muted font-mono tracking-wide mb-8"
-                        >
-                            Full Stack Developer &bull; AI Enthusiast &bull; Problem Solver
-                        </m.p>
-
-                        {/* CTA Buttons */}
-                        <m.div
-                            initial={{ opacity: 0, y: 20 }}
-                            animate={showContent ? { opacity: 1, y: 0 } : {}}
-                            transition={{ delay: 0.85, duration: 0.6 }}
-                            className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start"
-                        >
-                            <m.button
-                                onClick={() => document.getElementById('projects')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="btn-primary px-8 py-3.5 rounded-xl font-heading font-semibold text-white text-sm flex items-center justify-center gap-2"
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                data-cursor-hover
-                            >
-                                <span>View My Work</span>
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
-                                </svg>
-                            </m.button>
-
-                            <m.button
-                                onClick={() => document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' })}
-                                className="btn-outline px-8 py-3.5 rounded-xl font-heading font-semibold text-sm flex items-center justify-center gap-2"
-                                whileHover={{ scale: 1.03 }}
-                                whileTap={{ scale: 0.97 }}
-                                data-cursor-hover
-                            >
-                                <span>Let's Talk</span>
-                                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
-                                </svg>
-                            </m.button>
-                        </m.div>
-
-                        {/* Stats */}
-                        <m.div
-                            initial={{ opacity: 0 }}
-                            animate={showContent ? { opacity: 1 } : {}}
-                            transition={{ delay: 1.1, duration: 0.8 }}
-                            className="flex items-center gap-8 mt-10 justify-center lg:justify-start"
-                        >
-                            {[
-                                { value: '2+', label: 'Years Exp.' },
-                                { value: '10+', label: 'Projects' },
-                                { value: '10+', label: 'Technologies' },
-                            ].map((stat, i) => (
-                                <div key={i} className="text-center lg:text-left">
-                                    <div className="text-2xl lg:text-3xl font-heading font-bold text-accent">{stat.value}</div>
-                                    <div className="text-xs text-text-muted mt-0.5">{stat.label}</div>
-                                </div>
-                            ))}
-                        </m.div>
-                    </m.div>
-
-                    {/* Right Side - Image */}
-                    <m.div
-                        className="flex-1 relative flex items-center justify-center lg:justify-end min-w-0 lg:self-end lg:pr-6 xl:pr-10"
-                        initial={{ opacity: 0, scale: 0.8 }}
-                        animate={showContent ? { opacity: 1, scale: 1 } : {}}
-                        transition={{ delay: 0.5, duration: 0.8, ease: 'easeOut' }}
+                    <button
+                        onClick={handleNext}
+                        disabled={currentSlide === visionSlides.length - 1}
+                        className={`w-9 h-9 rounded-full border border-white/15 bg-white/[0.02] backdrop-blur-sm flex items-center justify-center text-white transition-all duration-300 ${
+                            currentSlide === visionSlides.length - 1
+                                ? 'opacity-25 cursor-not-allowed'
+                                : 'hover:border-accent/60 hover:bg-white/10 hover:text-accent cursor-pointer'
+                        }`}
+                        aria-label="Next slide"
                     >
-                        {/* Glow behind image */}
-                        <div className="absolute inset-0 flex items-center justify-center">
-                            <div className="w-[300px] h-[300px] lg:w-[450px] lg:h-[450px] bg-accent/[0.06] rounded-full blur-[80px]" />
-                        </div>
-
-                        {/* Decorative ring */}
-                        <m.div
-                            className="absolute w-[320px] h-[320px] lg:w-[480px] lg:h-[480px] rounded-full border border-accent/10"
-                            initial={{ opacity: 0, rotate: -8 }}
-                            animate={{ opacity: 1, rotate: 0 }}
-                            transition={{ duration: 0.8, ease: 'easeOut' }}
-                        >
-                            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-3 h-3 rounded-full bg-accent/30" />
-                            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-2 h-2 rounded-full bg-accent/20" />
-                        </m.div>
-
-                        {/* Secondary ring */}
-                        <m.div
-                            className="absolute w-[360px] h-[360px] lg:w-[540px] lg:h-[540px] rounded-full border border-white/[0.03]"
-                            initial={{ opacity: 0, scale: 0.98 }}
-                            animate={{ opacity: 1, scale: 1 }}
-                            transition={{ delay: 0.2, duration: 0.8, ease: 'easeOut' }}
-                        >
-                            <div className="absolute top-1/2 right-0 translate-x-1/2 -translate-y-1/2 w-2 h-2 rounded-full bg-accent/20" />
-                        </m.div>
-
-                        {/* Hero Image */}
-                        <m.div
-                            className="relative z-10"
-                            initial={{ y: 12, opacity: 0 }}
-                            animate={{ y: 0, opacity: 1 }}
-                            transition={{ duration: 0.8, ease: 'easeOut' }}
-                        >
-                            <img
-                                src={heroImage}
-                                alt="Kavindu Rajapaksha - Full Stack Developer"
-                                className="w-[280px] lg:w-[400px] xl:w-[440px] drop-shadow-2xl glow-accent select-none"
-                                draggable={false}
-                            />
-                        </m.div>
-
-                        {/* Floating tech icons */}
-                        {techIcons.map((tech, i) => (
-                            <TechIcon key={i} {...tech} />
-                        ))}
-                    </m.div>
+                        <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        </svg>
+                    </button>
                 </div>
             </div>
-
         </section>
     );
 };
