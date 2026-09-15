@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import heroBg from '../assets/hero-bg.png';
 
 const visionSlides = [
@@ -13,6 +13,13 @@ const HeroSection = () => {
     const [currentSlide, setCurrentSlide] = useState(0);
     const [direction, setDirection] = useState(1);
     const [isLoading, setIsLoading] = useState(true);
+    const [isCursorInHero, setIsCursorInHero] = useState(false);
+
+    // Motion values for cursor-following scroll badge
+    const cursorX = useMotionValue(-200);
+    const cursorY = useMotionValue(-200);
+    const springX = useSpring(cursorX, { stiffness: 200, damping: 28, mass: 0.5 });
+    const springY = useSpring(cursorY, { stiffness: 200, damping: 28, mass: 0.5 });
 
     useEffect(() => {
         const timer = setTimeout(() => {
@@ -21,6 +28,37 @@ const HeroSection = () => {
 
         return () => clearTimeout(timer);
     }, []);
+
+    // Track mouse position for cursor-following scroll badge
+    useEffect(() => {
+        const handleMouseMove = (e) => {
+            cursorX.set(e.clientX);
+            cursorY.set(e.clientY);
+        };
+        const handleMouseEnter = () => {
+            setIsCursorInHero(true);
+            document.body.classList.add('hero-cursor-none');
+        };
+        const handleMouseLeave = () => {
+            setIsCursorInHero(false);
+            document.body.classList.remove('hero-cursor-none');
+        };
+
+        const el = containerRef.current;
+        if (el) {
+            el.addEventListener('mousemove', handleMouseMove);
+            el.addEventListener('mouseenter', handleMouseEnter);
+            el.addEventListener('mouseleave', handleMouseLeave);
+        }
+        return () => {
+            document.body.classList.remove('hero-cursor-none');
+            if (el) {
+                el.removeEventListener('mousemove', handleMouseMove);
+                el.removeEventListener('mouseenter', handleMouseEnter);
+                el.removeEventListener('mouseleave', handleMouseLeave);
+            }
+        };
+    }, [cursorX, cursorY]);
 
     useEffect(() => {
         const handleScroll = () => {
@@ -157,14 +195,23 @@ const HeroSection = () => {
                     </AnimatePresence>
                 </div>
 
-                {/* Right Side - "SCROLL" Circular Badge */}
-                <button
+                {/* Cursor-Following "SCROLL" Badge */}
+                <m.button
                     onClick={handleScrollBadgeClick}
-                    className="hidden md:flex absolute right-8 lg:right-14 top-1/2 -translate-y-1/2 z-30 w-16 h-16 rounded-full border border-white/20 bg-white/[0.04] backdrop-blur-md items-center justify-center text-[10px] tracking-[0.22em] font-mono font-medium text-white/80 hover:text-white hover:border-accent/60 hover:bg-accent/[0.08] transition-all duration-300 group cursor-pointer shadow-lg shadow-black/30"
                     aria-label="Scroll to next slide"
+                    style={{
+                        position: 'fixed',
+                        left: springX,
+                        top: springY,
+                        x: '-50%',
+                        y: '-50%',
+                        opacity: isCursorInHero ? 1 : 0,
+                        pointerEvents: isCursorInHero ? 'auto' : 'none',
+                    }}
+                    className="hidden md:flex z-[9998] w-16 h-16 rounded-full border border-white/20 bg-white/[0.06] backdrop-blur-md items-center justify-center text-[10px] tracking-[0.22em] font-mono font-medium text-white/80 shadow-lg shadow-black/30 transition-colors duration-300 hover:text-white hover:border-accent/60 hover:bg-accent/[0.12] group"
                 >
-                    <span className="group-hover:scale-105 transition-transform duration-300">SCROLL</span>
-                </button>
+                    <span className="group-hover:scale-110 transition-transform duration-200">SCROLL</span>
+                </m.button>
 
                 {/* Bottom Right - Slide Navigation (< —— >) */}
                 <div className="absolute right-6 sm:right-10 bottom-6 sm:bottom-10 z-30 flex items-center gap-3.5 select-none">

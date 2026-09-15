@@ -246,3 +246,9 @@ body {
   background-color: rgba(255, 122, 0, 0.3);
   color: #FFFFFF;
 }
+
+/* Hide default cursor everywhere when scroll badge is active as cursor */
+body.hero-cursor-none,
+body.hero-cursor-none * {
+  cursor: none !important;
+}
