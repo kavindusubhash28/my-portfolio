@@ -129,6 +129,7 @@ const HeroSection = () => {
                     <div className="absolute inset-0 bg-dark-900/50" />
                 </div>
 
+
                 {/* Fixed Content: Name & Small Description */}
                 <div className="relative z-20 text-center px-4 max-w-2xl mx-auto mb-2 sm:mb-3 select-none">
                     <h2 className="font-heading font-extrabold text-sm sm:text-base lg:text-lg text-white uppercase tracking-[0.25em] drop-shadow-[0_2px_10px_rgba(0,0,0,0.9)]">

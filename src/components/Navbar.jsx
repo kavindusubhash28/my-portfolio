@@ -43,6 +43,28 @@ const Navbar = () => {
 
     return (
         <>
+            {/* Fixed Logo - Top Left (Desktop) */}
+            <m.div
+                initial={{ opacity: 0, x: -20 }}
+                animate={{ opacity: 1, x: 0 }}
+                transition={{ duration: 0.6, ease: 'easeOut', delay: 0.2 }}
+                className="fixed top-4 left-5 lg:top-5 lg:left-7 z-50 hidden md:block pointer-events-auto"
+            >
+                <m.button
+                    onClick={() => scrollTo('home')}
+                    whileHover={{ scale: 1.05 }}
+                    whileTap={{ scale: 0.95 }}
+                    data-cursor-hover
+                    className="block"
+                >
+                    <img
+                        src="/favicon.png"
+                        alt="KR Logo"
+                        className="w-10 h-10 lg:w-11 lg:h-11 rounded-xl object-cover shadow-lg shadow-black/40 opacity-90 hover:opacity-100 transition-opacity duration-300"
+                    />
+                </m.button>
+            </m.div>
+
             {/* Desktop Floating Pill Navbar */}
             <m.nav
                 initial={{ y: -100, opacity: 0 }}
@@ -90,9 +112,11 @@ const Navbar = () => {
                         whileTap={{ scale: 0.95 }}
                         data-cursor-hover
                     >
-                        <span className="font-heading font-bold text-xl text-white">
-                            K<span className="text-accent">.</span>R
-                        </span>
+                        <img
+                            src="/favicon.png"
+                            alt="KR Logo"
+                            className="w-9 h-9 rounded-xl object-cover shadow-md shadow-black/30 opacity-90 group-hover:opacity-100 transition-opacity duration-300"
+                        />
                     </m.button>
 
                     {/* Mobile Hamburger */}
